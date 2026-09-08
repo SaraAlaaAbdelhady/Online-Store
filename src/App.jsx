@@ -1,9 +1,9 @@
 import React from 'react'
 
-const npm install react-toastify = () => {
+const App = () => {
   return (
-    <div>npm install react-toastify</div>
+    <div>App</div>
   )
 }
 
-export default npm install react-toastify
+export default App
