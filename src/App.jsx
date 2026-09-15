@@ -19,8 +19,8 @@ const App = () => {
                 <CartProvider>
                   <Routes>
                     <Route path="/" element={<HeroSection />} />
-                    <Route path="/products" element={<div className="p-10 text-white text-2xl font-bold">صفحة المنتجات</div>} />
-                    <Route path="/categories" element={<div className="p-10 text-white text-2xl font-bold">صفحة الأقسام</div>} />
+                    <Route path="/products" element={<div className="p-10 text-white text-2xl font-bold">products</div>} />
+                    <Route path="/categories" element={<div className="p-10 text-white text-2xl font-bold">categories</div>} />
                   </Routes>
                 </CartProvider>
               </WishlistProvider>
