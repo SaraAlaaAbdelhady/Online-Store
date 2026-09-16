@@ -5,6 +5,7 @@ import { OrderProvider } from "./contexts/OrderContext.jsx";
 import { UserProvider } from "./contexts/UserContext";
 import { WishlistProvider } from "./contexts/WishlistContext.jsx";
 import { CartProvider } from "./contexts/CartContext.jsx";
+import ShopByCategory from "./components/category.jsx";
 
 const App = () => {
   return (
@@ -15,8 +16,8 @@ const App = () => {
             <OrderProvider>
               <WishlistProvider>
                 <CartProvider>
-                  <div>App</div>
-                </CartProvider>
+<ShopByCategory/>             
+     </CartProvider>
               </WishlistProvider>
             </OrderProvider>
           </ProductProvider>

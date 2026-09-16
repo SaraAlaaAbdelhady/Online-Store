@@ -70,6 +70,7 @@ function ShopByCategory(){
                 const results = await Promise.all(
                     categories.map((cat) => searchProducts({category: cat.apiValue}))
                 )
+                console.log("RESULTS:", results); // ⬅️ ضيف السطر ده
                 const counts = {};
                 categories.forEach((cat, i) => {
                     counts[cat.apiValue] = results[i]?.totalProducts ?? 0;
