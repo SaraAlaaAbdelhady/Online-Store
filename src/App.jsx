@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ProductProvider } from "./contexts/ProductContext.jsx";
 import { OrderProvider } from "./contexts/OrderContext.jsx";
 import { UserProvider } from "./contexts/UserContext";
@@ -10,6 +9,7 @@ import Home from "./pages/Home.jsx";
 import Footer from "./components/home/Footer.jsx";
 import HeroSection from "./components/HeroSection.jsx";
 import "./index.css";
+
 
 const App = () => {
   return (
