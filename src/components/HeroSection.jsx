@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Sparkles } from 'lucide-react';
 const HeroSection = () => {
   return (
     <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 min-h-screen text-white px-4 sm:px-8 py-12 flex items-center">
       <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 mt-16 md:mt-0">
         <div className="w-full md:w-1/2 text-center md:text-left">
-          <p className="text-white text-lg mb-6">
-            Premium Shopping Experience
+          <p className="text-white text-lg mb-6 flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-gray-300 shrink-0" />
+            <span>Premium Shopping Experience</span>
           </p>
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight mb-4">
             Shop the future, delivered today
