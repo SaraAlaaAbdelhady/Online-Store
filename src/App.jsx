@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ProductProvider } from "./contexts/ProductContext.jsx";
 import { OrderProvider } from "./contexts/OrderContext.jsx";
