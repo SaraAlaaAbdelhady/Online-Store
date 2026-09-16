@@ -111,6 +111,15 @@ export const productService = {
         const res = await api.get('/products');
         return res.data;
     },
+    async getAllProductsForFeatured() {
+    const res = await api.get('/products', {
+        params: {
+            page: 1,
+            limit: 49
+        }
+    });
+    return res.data;
+    },
 
     async getProductById(id) {
         try {

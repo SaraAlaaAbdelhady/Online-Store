@@ -8,6 +8,7 @@ import Navbar from "./components/navbar.jsx";
 import Home from "./pages/Home.jsx";
 import Footer from "./components/home/Footer.jsx";
 
+
 const App = () => {
   return (
     <>
@@ -29,6 +30,8 @@ const App = () => {
         </UserProvider>
       </BrowserRouter>
     </>
+
+
   );
 };
 
