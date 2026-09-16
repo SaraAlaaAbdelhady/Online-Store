@@ -148,22 +148,22 @@ function Navbar() {
             <div className="hidden sm:flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50/80  dark:border-slate-800 dark:bg-slate-900/80">
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="rounded-full p-2 text-slate-600 transition-colors hover:bg-[#4338ca] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400 outline-none "
+                className="rounded-full p-2 text-slate-600 transition-colors hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400 outline-none "
               >
                 <BiSearch size={20}/>
               </button>
             </div>
           )}
 
-          <button className="rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors  hover:bg-[#4338ca] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
+          <button className="rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors  hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
             <BiMoon size={20} />
           </button>
 
-          <button className="sm:flex rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors hover:bg-[#4338ca] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
+          <button className="sm:flex rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
             <BiHeart size={20}   />
           </button>
 
-          <button className="rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors  hover:bg-[#4338ca] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
+          <button className="rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors  hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
             <CgShoppingCart size={20} />
           </button>
           <button

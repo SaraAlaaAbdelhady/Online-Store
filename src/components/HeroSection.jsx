@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 // import { Sparkles } from 'lucide-react';
 const HeroSection = () => {
   return (
-    <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 min-h-screen text-white px-4 sm:px-8 py-12 flex items-center">
+    <>
+    <section className="relative overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700  min-h-screen text-white px-4 sm:px-8 py-12 flex items-center shadow-sm ">
       <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 mt-16 md:mt-0">
         <div className="w-full md:w-1/2 text-center md:text-left">
           <p className="text-white text-lg mb-6 flex items-center gap-2">
@@ -34,7 +35,40 @@ const HeroSection = () => {
 
         </div>
       </div>
+       <style>{`
+  @keyframes speed-line {
+    0% { transform: translateX(-40px); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translateX(220px); opacity: 0; }
+  }
+  .speed-line {
+    animation: speed-line 2.2s linear infinite;
+  }
+  @keyframes wheel-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .wheel-spin {
+    animation: wheel-spin 4s linear infinite;
+  }
+`}</style>
+<div className="absolute top-[20%] left-0 speed-line" style={{ animationDelay: "0s" }}>
+  <div className="w-50 h-[3px] rounded-full bg-white/70" />
+</div>
+<div className="absolute top-[40%] left-0 speed-line" style={{ animationDelay: "0.6s" }}>
+  <div className="w-50 h-[3px] rounded-full bg-white/40" />
+</div>
+<div className="absolute top-[65%] left-0 speed-line" style={{ animationDelay: "1.2s" }}>
+  <div className="w-20 h-[3px] rounded-full bg-white/55" />
+</div>
+
+<div className="absolute -bottom-10 -right-10 w-48 h-48 rounded-full border-4 border-white/20 wheel-spin flex items-center justify-center">
+  <div className="w-3 h-3 rounded-full bg-white/30" />
+</div>
     </section>
+   
+
+    </>
   );
 };
 

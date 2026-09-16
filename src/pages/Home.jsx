@@ -9,7 +9,7 @@ const Home = () => {
     <>
     <HeroSection/>
     
-      <ShopByCategory />
+      <ShopByCategory  />
       <FeaturedProducts />
       <HowItWorks />
       <StayUpdated />

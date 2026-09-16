@@ -86,13 +86,13 @@ function ShopByCategory(){
     }, [])
 
     return(
-        <section className="px-6 py-12 w-full">
+        <section className="px-12  lg:px-20   py-12  ">
             <div className="mb-10 text-center">
                 <h2 className="text-3xl font-bold text-slate-900">Shop By Category</h2>
                 <p className="mt-2 text-base text-slate-500">Browse our wide range of categories</p>
             </div>
 
-            <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 lg:grid-cols-4">
                 {categories.map((category) => {
                     const Icon = categoryIcons[category.icon] ?? categoryIcons.default;
                     const count = categoryCounts[category.apiValue] ?? 0;
