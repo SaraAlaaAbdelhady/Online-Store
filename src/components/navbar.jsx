@@ -1,5 +1,7 @@
 import { useState } from "react";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/logo.png";
+import { BiHeart, BiMoon, BiSearch,  BiX } from "react-icons/bi";
+import { CgShoppingCart } from "react-icons/cg";
 
 function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -100,7 +102,7 @@ function Navbar() {
             <img
               src={logo}
               alt="Logo"
-              className="h-8 w-auto object-contain sm:h-12"
+              className="h-8 w-auto object-contain sm:h-15"
             />
           </a>
         </div>
@@ -118,7 +120,7 @@ function Navbar() {
                 className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
                   isActive
                     ? "text-white shadow-sm bg-[#4f46e5]"
-                    : "text-slate-600 hover:bg-white hover:text-[#4f46e5] dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-blue-400"
+                    : "text-slate-600 hover:bg-[#4f46e5] hover:text-white dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-blue-400"
                 }`}
               >
                 {item.name}
@@ -139,103 +141,30 @@ function Navbar() {
                 onClick={() => setIsSearchOpen(false)}
                 className="rounded-full p-1 text-slate-500 hover:bg-slate-200/60 dark:text-slate-400 dark:hover:bg-slate-800 transition-colors"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-x"
-                >
-                  <path d="M18 6 6 18"></path>
-                  <path d="m6 6 12 12"></path>
-                </svg>
+                <BiX />
               </button>
             </div>
           ) : (
-            <div className="hidden sm:flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50/80 p-1 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
+            <div className="hidden sm:flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50/80  dark:border-slate-800 dark:bg-slate-900/80">
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="rounded-full p-2 text-slate-600 transition-colors hover:bg-white hover:text-brand-600 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400"
+                className="rounded-full p-2 text-slate-600 transition-colors hover:bg-[#4338ca] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400 outline-none "
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-search w-4 h-4"
-                  aria-hidden="true"
-                >
-                  <path d="m21 21-4.34-4.34"></path>
-                  <circle cx="11" cy="11" r="8"></circle>
-                </svg>
+                <BiSearch size={20}/>
               </button>
             </div>
           )}
 
-          <button className="rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 shadow-sm transition-colors hover:bg-white hover:text-brand-600 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-moon w-4 h-4"
-              aria-hidden="true"
-            >
-              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-            </svg>
+          <button className="rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors  hover:bg-[#4338ca] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
+            <BiMoon size={20} />
           </button>
 
-          <button className="sm:flex rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 shadow-sm transition-colors hover:bg-white hover:text-brand-600 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-heart w-4 h-4"
-              aria-hidden="true"
-            >
-              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
-            </svg>
+          <button className="sm:flex rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors hover:bg-[#4338ca] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
+            <BiHeart size={20}   />
           </button>
 
-          <button className="rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 shadow-sm transition-colors hover:bg-white hover:text-brand-600 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-shopping-cart w-4 h-4"
-              aria-hidden="true"
-            >
-              <circle cx="8" cy="21" r="1"></circle>
-              <circle cx="19" cy="21" r="1"></circle>
-              <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
-            </svg>
+          <button className="rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors  hover:bg-[#4338ca] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
+            <CgShoppingCart size={20} />
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(true)}
@@ -264,7 +193,7 @@ function Navbar() {
           </button>
           <a
             href="/login"
-            className="hidden md:inline-flex rounded-full bg-[#4f46e5] px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-indigo-500/20 transition-all hover:bg-[#4338ca]"
+            className="hidden md:inline-flex rounded-full bg-blue-500 px-6 py-2.5 text-sm font-semibold text-white  transition-all hover:bg-blue-600"
           >
             Login
           </a>
