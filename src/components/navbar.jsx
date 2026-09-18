@@ -2,6 +2,7 @@ import { useState } from "react";
 import logo from "../assets/logo.png";
 import { BiHeart, BiMoon, BiSearch,  BiX } from "react-icons/bi";
 import { CgShoppingCart } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -164,7 +165,10 @@ function Navbar() {
           </button>
 
           <button className="rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors  hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
-            <CgShoppingCart size={20} />
+          <Link to={"/cart"}>
+           <CgShoppingCart size={20} />
+          </Link>
+           
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(true)}

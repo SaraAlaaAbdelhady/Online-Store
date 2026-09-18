@@ -9,6 +9,7 @@ import Home from "./pages/Home.jsx";
 import Footer from "./components/home/Footer.jsx";
 import HeroSection from "./components/HeroSection.jsx";
 import "./index.css";
+import CartPage from "./pages/Cart.jsx";
 
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
                         </div>
                       }
                     />
+                    <Route path="/cart" element={<CartPage />} />
                   </Routes>
                   <Footer />
                 </CartProvider>
