@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 @keyframes slide-up {
-  0%{
+  0% {
     transform: translateY(12px);
     opacity: 0;
   }
-  100%{
+
+  100% {
     transform: translateY(0);
     opacity: 1;
   }
@@ -13,4 +14,11 @@
 
 .slide-up {
   animation: slide-up 0.3s ease-out;
+}
+
+body {
+  background: #ffffff;
+  /* background-color: rgb(12, 67, 116); */
+
+  font-family: var(--font-serif);
 }
