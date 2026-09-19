@@ -10,7 +10,8 @@ import Footer from "./components/home/Footer.jsx";
 import HeroSection from "./components/HeroSection.jsx";
 import "./index.css";
 import CartPage from "./pages/Cart.jsx";
-
+import UserLogin from "./auth/UserLogin.jsx";
+import ForgetPassword from "./auth/ForgetPassword.jsx";
 
 const App = () => {
   return (
@@ -25,6 +26,8 @@ const App = () => {
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/" element={<HeroSection />} />
+                    <Route path="/login" element={<UserLogin />} />
+                    <Route path="/forgot-password" element={<ForgetPassword />} />
                     <Route
                       path="/products"
                       element={
