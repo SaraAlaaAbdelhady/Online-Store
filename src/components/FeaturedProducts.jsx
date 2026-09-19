@@ -16,7 +16,7 @@ const FeaturedProducts = () => {
   const [addingProductId, setAddingProductId] = useState(null);
   const [toast, setToast] = useState("");
 
-  const featuredProducts = products
+const featuredProducts = (products || [])
     .filter((product) => product.featured === true)
     .slice(0, 8);
 

@@ -10,7 +10,7 @@ import Footer from "./components/home/Footer.jsx";
 import HeroSection from "./components/HeroSection.jsx";
 import "./index.css";
 import CartPage from "./pages/Cart.jsx";
-
+import Checkout from "./pages/Checkout.jsx";
 
 const App = () => {
   return (
@@ -42,6 +42,7 @@ const App = () => {
                       }
                     />
                     <Route path="/cart" element={<CartPage />} />
+                    <Route path="/Checkout" element={<Checkout />} />
                   </Routes>
                   <Footer />
                 </CartProvider>

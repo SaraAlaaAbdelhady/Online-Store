@@ -14,6 +14,7 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
+     <>
       <div className="p-20 text-center">
         <h2 className="text-lg font-medium text-slate-900">Your cart is empty</h2>
         <Link
@@ -23,6 +24,15 @@ export default function CartPage() {
           Start Shopping
         </Link>
       </div>
+      <div className="p-20 text-center">
+          <Link
+          to="/Checkout"
+          className="mt-4 inline-block rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white hover:bg-indigo-700"
+        >
+          go to checkout
+        </Link>
+      </div>
+     </>
     );
   }
 
