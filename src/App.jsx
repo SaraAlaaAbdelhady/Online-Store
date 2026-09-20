@@ -7,6 +7,8 @@ import { WishlistProvider } from "./contexts/WishlistContext.jsx";
 import { CartProvider } from "./contexts/CartContext.jsx";
 import FeaturedProducts from "./components/FeaturedProducts.jsx";
 import Wishlist from "./components/Wishlist.jsx";
+import Register from "./components/Register.jsx";
+import VerifyOtp from "./components/VerifyOtp.jsx";
 
 const App = () => {
   return (
@@ -19,6 +21,8 @@ const App = () => {
                 <Routes>
                   <Route path="/" element={<FeaturedProducts />} />
                   <Route path="/wishlist" element={<Wishlist />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/verify-otp" element={<VerifyOtp />} />
                 </Routes>
               </CartProvider>
             </WishlistProvider>
