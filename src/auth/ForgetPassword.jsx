@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 import toast, { Toaster } from "react-hot-toast";
 import { Check } from "lucide-react";
+import { ToastMessage } from "../components/Auth/ToastMessage";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
@@ -18,43 +19,33 @@ const ForgetPassword = () => {
   // submit email to check if it exist or not and wait for OTP
 
   const submitEmail = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // Check if the use enter the email or not
 
     if (email.email.trim() == "") {
-      toast.error("Please Enter Your Email", {
-        style: {
-          background: "#111",
-          color: "#fff",
-          fontFamily: "sans-serif"
-        },
-      });
+      ToastMessage("Please Enter Your Email");
     } else {
       try {
-        setIsLoading(true)
+        setIsLoading(true);
         const res = await sendForgotPasswordOtp(email);
         if (res) {
           toast.success("✅ OTP Sent To Your Email", {
             style: {
               background: "#111",
               color: "#fff",
-              fontFamily: "sans-serif"
+              fontFamily: "sans-serif",
             },
           });
           setTimeout(() => {
-            navigate("/verify-otp");
+            navigate(
+              `/verify-otp?email=${encodeURIComponent(email.email)}&mode=reset`,
+            );
           }, 500);
         }
       } catch (error) {
-        setIsLoading(false)
+        setIsLoading(false);
         console.log(error.status);
-        toast.error("User not found", {
-          style: {
-            background: "#111",
-            color: "#fff",
-            fontFamily: "sans-serif"
-          },
-        });
+        ToastMessage("User not found");
       }
     }
   };

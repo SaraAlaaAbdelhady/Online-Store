@@ -12,6 +12,7 @@ import "./index.css";
 import CartPage from "./pages/Cart.jsx";
 import UserLogin from "./auth/UserLogin.jsx";
 import ForgetPassword from "./auth/ForgetPassword.jsx";
+import VerifyOTP from "./auth/VerifyOTP.jsx";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/" element={<HeroSection />} />
                     <Route path="/login" element={<UserLogin />} />
+                    <Route path="/verify-otp" element={<VerifyOTP />} />
                     <Route path="/forgot-password" element={<ForgetPassword />} />
                     <Route
                       path="/products"

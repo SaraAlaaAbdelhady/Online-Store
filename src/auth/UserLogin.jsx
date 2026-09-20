@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 import AuthHeader from "../components/Auth/AuthHeader";
 import toast, { Toaster } from "react-hot-toast";
+import { ToastMessage } from "../components/Auth/ToastMessage";
 
 const UserLogin = () => {
   const { login } = useUser();
@@ -72,13 +73,7 @@ const UserLogin = () => {
         setIsLoading(false);
 
         console.log(error);
-        toast.error("Invalid email or password.", {
-          style: {
-            background: "#111",
-            color: "#fff",
-            fontFamily: "sans-serif",
-          },
-        });
+        ToastMessage("Invalid email or password.")
       }
     }
   };
