@@ -8,10 +8,13 @@ import Navbar from "./components/navbar.jsx";
 import Home from "./pages/Home.jsx";
 import Footer from "./components/home/Footer.jsx";
 import HeroSection from "./components/HeroSection.jsx";
-import "./index.css";
 import CartPage from "./pages/Cart.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import Profile from "./pages/Profile.jsx";
+import MyOrders from "./pages/MyOrders.jsx";
+import OrderDetails from "./pages/OrderDetails.jsx";
+import "./index.css";
+
 const App = () => {
   return (
     <>
@@ -44,6 +47,8 @@ const App = () => {
                     <Route path="/cart" element={<CartPage />} />
                     <Route path="/Checkout" element={<Checkout />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/orders" element={<MyOrders />} />
+                    <Route path="/orders/:id" element={<OrderDetails />} />
                   </Routes>
                   <Footer />
                 </CartProvider>
