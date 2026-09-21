@@ -21,8 +21,7 @@ function MyOrders() {
     const [ paginationLoading, setPaginationLoading ] = useState(false);
     const [error, setError] = useState(null);
 
-    // useEffect on mount
-    
+    // useEffect on mount 
     useEffect(() => {
         const fetchOrders = async () => {
             if (page === 1 && orders.length === 0) {
@@ -50,7 +49,7 @@ function MyOrders() {
     if (loading) return <LoadingSpinner />
 
     // if error: show error message
-    if (error) return <ErrorMsg message={error}/>
+    if (error) return <ErrorMsg message={error} />
 
     // if orders is empty: no orders yet and navigate to shop
     if (!loading && total === 0) {
@@ -69,9 +68,9 @@ function MyOrders() {
 
     // otherwise: map over orders, render an OrderCard per order
     return(
-        <div className="bg-gray-100/50">
-            <div className="p-6 md:p-8 max-w-3xl mx-auto">
-                <h2 className="text-2xl font-bold text-slate-800 mb-8">My Orders</h2>
+        <div className="bg-gray-100/50 dark:bg-slate-900">
+            <div className="p-6 md:p-8 max-w-4xl mx-auto">
+                <h2 className="text-2xl font-bold text-slate-800 mb-8 dark:text-slate-200">My Orders</h2>
                 {orders.map(order => (
                     <OrderCard key={order._id} order={order} />
                 ))}

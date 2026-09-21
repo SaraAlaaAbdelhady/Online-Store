@@ -67,12 +67,12 @@ function OrderDetails() {
     const canCancel = ["pending", "confirmed"].includes(order.status)
 
     return(
-        <div className="bg-gray-100/50">
-            <div className="p-6 md:p-8 max-w-3xl mx-auto"> 
+        <div className="bg-gray-100/50 dark:bg-slate-900">
+            <div className="p-6 md:p-8 max-w-4xl mx-auto"> 
                 {/* header */}
                 <div className="flex justify-between items-center mb-8">
                     <div className="flex flex-col">
-                        <h2 className="text-2xl font-bold text-slate-800">Order Details</h2>
+                        <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200">Order Details</h2>
                         <span className="text-sm text-slate-500 mt-1 font-medium">{`Order #${order._id.slice(-8).toUpperCase()}`}</span>
                     </div>
                     <StatusBadge status={order.status}/>
@@ -97,14 +97,14 @@ function OrderDetails() {
                 {/* cancel confirmation */}
                 {showCancelConfirm && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-                        <div className="bg-white rounded-xl p-6 max-w-sm w-full mx-4 slide-up">
-                            <h3 className="text-xl font-bold text-slate-800">Cancel Order?</h3>
-                            <p className="mt-2 text-sm leading-6 text-slate-500">Are you sure you want to cancel this order? This action cannot be undone.</p>
+                        <div className="bg-white dark:bg-slate-800 rounded-xl p-6 max-w-sm w-full mx-4 slide-up">
+                            <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200">Cancel Order?</h3>
+                            <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">Are you sure you want to cancel this order? This action cannot be undone.</p>
                             <div className="mt-6 flex justify-end gap-3 ">
                                 <button
                                     onClick={() => setShowCancelConfirm(false)}
                                     disabled={cancelling}
-                                    className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 bg-slate-100 transition-colors hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-50"
+                                    className="rounded-lg px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-700 transition-colors hover:bg-slate-200 dark:hover:bg-slate-600 disabled:cursor-not-allowed disabled:opacity-50"
                                 >
                                     Keep Order
                                 </button>

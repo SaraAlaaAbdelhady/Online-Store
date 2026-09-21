@@ -14,12 +14,12 @@ function OrderCard({ order }){
     return(
         <Link 
             to={`/orders/${order._id}`}
-            className="flex items-center justify-between rounded-xl gap-3 p-5 border border-slate-200 hover:shadow-md transition-shadow mb-4 bg-white"
+            className="flex items-center justify-between rounded-xl gap-3 p-5 border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow mb-4 bg-white dark:bg-slate-800"
         >
             <div className="flex flex-col">
                 <div className="flex gap-3 items-center justify-center">
                     {/* id */}
-                    <span className="font-mono font-semibold text-sm text-slate-800">{`#${order._id.slice(-8).toUpperCase()}`}</span>
+                    <span className="font-mono font-semibold text-sm text-slate-800 dark:text-slate-200">{`#${order._id.slice(-8).toUpperCase()}`}</span>
                     {/* status */}
                     <StatusBadge status={order.status} />
                 </div>
@@ -31,7 +31,7 @@ function OrderCard({ order }){
 
             <div className="flex items-center gap-3">
                 {/* totalPrice */}
-                <span className="font-bold text-blue-700 text-lg truncate">{`EGP ${order.totalPrice}`}</span>
+                <span className="font-bold text-blue-700 text-base sm:text-lg truncate">{`EGP ${order.totalPrice}`}</span>
                 {/* icon */}
                 <MdKeyboardArrowRight size={24} className="text-gray-400" />
             </div>
