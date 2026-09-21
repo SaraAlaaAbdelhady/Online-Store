@@ -14,7 +14,7 @@ function Navbar() {
   const { user } = useUser();
 
 
-  const { theme, toggleTheme } = useTheme();
+  // const { theme, toggleTheme } = useTheme();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   // const [activeTab, setActiveTab] = useState("Home");

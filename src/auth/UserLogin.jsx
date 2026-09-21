@@ -86,7 +86,7 @@ const UserLogin = () => {
     <>
       <Toaster position="top-center" reverseOrder={false} />
 
-      <div className=" flex flex-col gap-y-5 justify-center items-center bg-gray-50 min-h-fit p-2.5 ">
+      <div className="    flex flex-col gap-y-5 justify-center items-center bg-gray-50 min-h-fit p-2.5 dark:bg-[#0f172a] ">
         {/* header section  */}
 
         <AuthHeader headerContent={headerContent} />
@@ -94,7 +94,7 @@ const UserLogin = () => {
         {/* start login form section  */}
 
         <form
-          className="flex flex-col  justify-between w-[35%] bg-white px-5 py-4 rounded-2xl border border-gray-200 mb-10"
+          className="flex flex-col  justify-between w-[35%] bg-white px-5 py-4 rounded-2xl border border-gray-200 mb-10 dark:bg-[#1d293d93] dark:border-[#454e65]"
           method="post"
           onSubmit={submitData}
         >
@@ -107,7 +107,7 @@ const UserLogin = () => {
 
             <div className="input-holder w-full relative">
               <input
-                className={`w-full py-2.5 px-1 pl-11 font-sans rounded-xl border ${errors.emailError?"border-red-500": "border-gray-400"} outline-0 focus:border-transparent  focus:ring-2 focus:ring-[#5d10ec] transition`}
+                className={`w-full py-2 px-1 pl-11 font-sans rounded-xl border ${errors.emailError?"border-red-500": "border-gray-400"} outline-0 focus:border-transparent  focus:ring-2 focus:ring-[#5d10ec] transition `}
                 placeholder="you@example.com"
                 type="email"
                 name="email"
@@ -133,7 +133,7 @@ const UserLogin = () => {
             </label>
             <div className="input-holder text-gray-700 w-full relative">
               <input
-                className={`w-full py-2.5 px-1 pl-11 rounded-xl border ${errors.passError?"border-red-500": "border-gray-400"} outline-0 focus:border-transparent  focus:ring-2 focus:ring-[#5d10ec] transition`}
+                className={`w-full py-2 px-1 pl-11 rounded-xl border ${errors.passError?"border-red-500": "border-gray-400"} outline-0 focus:border-transparent  focus:ring-2 focus:ring-[#5d10ec] transition`}
                 placeholder="••••••••"
                 type="password"
                 name="password"
