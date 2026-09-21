@@ -7,7 +7,7 @@ import { Newspaper } from "lucide-react";
 import { ToastMessage } from "../components/Auth/ToastMessage";
 
 const VerifyOTP = () => {
-  const { resetPassword, sendForgotPasswordOtp, verifyRegisterOtp} = useUser();
+  const { resetPassword, sendForgotPasswordOtp, verifyRegisterOtp } = useUser();
 
   /////////////////// get user data from URL  //////////////////
 
@@ -15,6 +15,11 @@ const VerifyOTP = () => {
   const [searchParams] = useSearchParams();
   const email = searchParams.get("email");
   const mode = searchParams.get("mode");
+
+  //////////////////////// check is the user has email or not ///
+  if (!email) {
+    navigate("/login");
+  }
 
   ///////////////////// start the states section //////////////////////////////
 
@@ -62,7 +67,7 @@ const VerifyOTP = () => {
   const handleResend = async (e) => {
     e.preventDefault();
     try {
-        await sendForgotPasswordOtp(email);
+      await sendForgotPasswordOtp(email);
 
       sessionStorage.setItem("otpExpiry", Date.now() + 60000);
       setTime(60);
@@ -148,7 +153,11 @@ const VerifyOTP = () => {
   const headerContent = {
     title: "",
     message: "Verify Your Email",
-    instructions: <>We sent a 6-digit code to <span className="">{email}</span></>,
+    instructions: (
+      <>
+        We sent a 6-digit code to <span className="">{email}</span>
+      </>
+    ),
   };
 
   return (
@@ -234,7 +243,11 @@ const VerifyOTP = () => {
           <input
             className="w-full text-white font-sans font-semibold p-2 rounded-xl bg-linear-to-tl from-[#5d10ec] to-[#2368e9] opacity-90 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-[0_5px_5px_-3px_rgba(0,0,0,0.3)] transition-all duration-300 mb-3"
             type="submit"
-            value={mode ? `${isLoading ? "Reset Password..." : "Reset Password"}`: `${isLoading ? "Verify & Create Account..." : "Verify & Create Account"}`}
+            value={
+              mode
+                ? `${isLoading ? "Reset Password..." : "Reset Password"}`
+                : `${isLoading ? "Verify & Create Account..." : "Verify & Create Account"}`
+            }
             disabled={isLoading}
           />
 
