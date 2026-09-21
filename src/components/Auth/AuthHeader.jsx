@@ -14,7 +14,7 @@ const AuthHeader = ({headerContent}) => {
       </Link>
 
       <div className="header-content text-center">
-        <p className="text-[1.29rem] font-sans font-semibold">{headerContent.message}</p>
+        <p className="message text-[1.29rem] font-sans font-semibold">{headerContent.message}</p>
         <p className="text-gray-500 font-sans text-[.93rem]">
           {headerContent.instructions}
         </p>

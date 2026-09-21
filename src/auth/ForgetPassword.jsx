@@ -6,6 +6,7 @@ import { useUser } from "../contexts/UserContext";
 import toast, { Toaster } from "react-hot-toast";
 import { Check } from "lucide-react";
 import { ToastMessage } from "../components/Auth/ToastMessage";
+import './Auth.css'
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ const ForgetPassword = () => {
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="container flex flex-col gap-y-8 justify-center items-center bg-gray-50 min-h-fit p-5">
+      <div className="container flex flex-col gap-y-8 justify-center items-center bg-gray-50 min-h-fit p-5.5">
         {/* header section  */}
 
         <AuthHeader headerContent={headerContent} />
@@ -76,7 +77,7 @@ const ForgetPassword = () => {
 
             <div className="input-holder text-gray-700 w-full relative">
               <input
-                className="w-full py-2.5 px-2 pl-12 font-sans rounded-xl border border-gray-300 outline-0  focus:ring-2 focus:ring-[#5d10ec] transition"
+                className="w-full py-2.5 px-2 pl-12 font-sans rounded-xl border border-gray-400 outline-0 focus:border-transparent  focus:ring-2 focus:ring-[#5d10ec] transition"
                 placeholder="you@example.com"
                 type="email"
                 name="email"

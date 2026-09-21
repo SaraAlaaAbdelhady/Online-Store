@@ -93,7 +93,7 @@ const VerifyOTP = () => {
         const res = await resetPassword(email, OTP, Newspaper);
 
         ToastMessage("success", "Password updated successfully");
-        
+
         setTimeout(() => {
           navigate("/");
         }, 500);
@@ -148,7 +148,7 @@ const VerifyOTP = () => {
   const headerContent = {
     title: "",
     message: "Verify Your Email",
-    instructions: `We sent a 6-digit code to ${email ?? "user@gmail.com"}`,
+    instructions: <>We sent a 6-digit code to <span className="">{email}</span></>,
   };
 
   return (
@@ -173,7 +173,7 @@ const VerifyOTP = () => {
                 <input
                   key={index}
                   type="text"
-                  className="w-12 py-3 text-2xl text-center font-sans font-bold rounded-lg border border-gray-300 outline-0 focus:ring-2 focus:ring-[#5d10ec] transition"
+                  className="w-12 py-3 text-2xl text-center font-sans font-bold rounded-lg border border-gray-400 outline-0 focus:border-transparent focus:ring-2 focus:ring-[#5d10ec] transition"
                   autoComplete="one-time-code"
                   inputMode="numeric"
                   pattern="[0-9]*"
@@ -217,7 +217,7 @@ const VerifyOTP = () => {
 
               <div className="input-holder text-gray-700 w-full relative">
                 <input
-                  className="w-full py-2.5 px-2 pl-5 font-sans rounded-xl border border-gray-300 outline-0  focus:ring-2 focus:ring-[#5d10ec] transition"
+                  className="w-full py-2.5 px-2 pl-5 font-sans rounded-xl border border-gray-400 outline-0 focus:border-transparent focus:ring-2 focus:ring-[#5d10ec] transition"
                   placeholder="Enter new password"
                   type="password"
                   name="password"
@@ -234,7 +234,7 @@ const VerifyOTP = () => {
           <input
             className="w-full text-white font-sans font-semibold p-2 rounded-xl bg-linear-to-tl from-[#5d10ec] to-[#2368e9] opacity-90 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-[0_5px_5px_-3px_rgba(0,0,0,0.3)] transition-all duration-300 mb-3"
             type="submit"
-            value={`${isLoading ? "Reset Password..." : "Reset Password"}`}
+            value={mode ? `${isLoading ? "Reset Password..." : "Reset Password"}`: `${isLoading ? "Verify & Create Account..." : "Verify & Create Account"}`}
             disabled={isLoading}
           />
 

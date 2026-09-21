@@ -58,7 +58,7 @@ const UserLogin = () => {
         setIsLoading(true);
         const response = await login(formData);
         if (response) {
-          
+
          ToastMessage("success","Logged in Successfully")
 
           setTimeout(() => {
@@ -86,7 +86,7 @@ const UserLogin = () => {
     <>
       <Toaster position="top-center" reverseOrder={false} />
 
-      <div className="container flex flex-col gap-y-8 justify-center items-center bg-gray-50 min-h-fit p-2">
+      <div className="container flex flex-col gap-y-8 justify-center items-center bg-gray-50 min-h-fit p-2.5">
         {/* header section  */}
 
         <AuthHeader headerContent={headerContent} />
@@ -107,7 +107,7 @@ const UserLogin = () => {
 
             <div className="input-holder w-full relative">
               <input
-                className={`w-full py-2.5 px-1 pl-11 font-sans rounded-xl border ${errors.emailError?"border-red-500": "border-gray-300"} outline-0  focus:ring-2 focus:ring-[#5d10ec] transition`}
+                className={`w-full py-2.5 px-1 pl-11 font-sans rounded-xl border ${errors.emailError?"border-red-500": "border-gray-400"} outline-0 focus:border-transparent  focus:ring-2 focus:ring-[#5d10ec] transition`}
                 placeholder="you@example.com"
                 type="email"
                 name="email"
@@ -133,7 +133,7 @@ const UserLogin = () => {
             </label>
             <div className="input-holder text-gray-700 w-full relative">
               <input
-                className={`w-full py-2.5 px-1 pl-11 rounded-xl border ${errors.passError?"border-red-500": "border-gray-300"} outline-0  focus:ring-2 focus:ring-[#5d10ec] transition`}
+                className={`w-full py-2.5 px-1 pl-11 rounded-xl border ${errors.passError?"border-red-500": "border-gray-400"} outline-0 focus:border-transparent  focus:ring-2 focus:ring-[#5d10ec] transition`}
                 placeholder="••••••••"
                 type="password"
                 name="password"
