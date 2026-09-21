@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 const HeroSection = () => {
   return (
     <>
-    <section className="relative overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700  min-h-screen text-white px-4 sm:px-8 py-12 flex items-center shadow-sm ">
-      <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 mt-16 md:mt-0">
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 dark:from-slate-950 dark:via-gray-900 dark:to-slate-900 min-h-screen text-white px-4 sm:px-8 py-12 flex items-center shadow-sm transition-colors duration-500">      <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 mt-16 md:mt-0">
+        
+
         <div className="w-full md:w-1/2 text-center md:text-left">
           <p className="text-white text-lg mb-6 flex items-center gap-2">
             <GiSparkles className="w-5 h-5 text-gray-300 shrink-0" />
@@ -20,14 +21,14 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
             <Link
               to="/shop"
-              className="w-full sm:w-auto cursor-pointer bg-white text-blue-700 hover:bg-gray-100 font-semibold px-8 py-3.5 rounded-lg transition duration-300 text-center shadow-md"
+              className="w-full sm:w-auto cursor-pointer bg-white dark:bg-blue-600 text-blue-700 dark:text-white hover:bg-gray-100 dark:hover:bg-blue-500 font-semibold px-8 py-3.5 rounded-lg transition duration-300 text-center shadow-md"
             >
               Shop Now
             </Link>
 
             <Link
               to="/categories"
-              className="w-full sm:w-auto cursor-pointer border border-white/40 hover:bg-white/20 text-white font-semibold px-8 py-3.5 rounded-lg transition duration-300 text-center"
+              className="w-full sm:w-auto cursor-pointer border border-white/40 dark:border-gray-600 hover:bg-white/20 dark:hover:bg-gray-800/50 text-white font-semibold px-8 py-3.5 rounded-lg transition duration-300 text-center"
             >
               View Categories
             </Link>
@@ -35,7 +36,7 @@ const HeroSection = () => {
 
         </div>
       </div>
-       <style>{`
+        <style>{`
   @keyframes speed-line {
     0% { transform: translateX(-40px); opacity: 0; }
     20% { opacity: 1; }
@@ -52,21 +53,21 @@ const HeroSection = () => {
     animation: wheel-spin 4s linear infinite;
   }
 `}</style>
-<div className="absolute top-[20%] left-0 speed-line" style={{ animationDelay: "0s" }}>
-  <div className="w-50 h-[3px] rounded-full bg-white/70" />
-</div>
-<div className="absolute top-[40%] left-0 speed-line" style={{ animationDelay: "0.6s" }}>
-  <div className="w-50 h-[3px] rounded-full bg-white/40" />
-</div>
-<div className="absolute top-[65%] left-0 speed-line" style={{ animationDelay: "1.2s" }}>
-  <div className="w-20 h-[3px] rounded-full bg-white/55" />
-</div>
+        <div className="absolute top-[20%] left-0 speed-line" style={{ animationDelay: "0s" }}>
+          <div className="w-50 h-[3px] rounded-full bg-white/70" />
+        </div>
+        <div className="absolute top-[40%] left-0 speed-line" style={{ animationDelay: "0.6s" }}>
+          <div className="w-50 h-[3px] rounded-full bg-white/40" />
+        </div>
+        <div className="absolute top-[65%] left-0 speed-line" style={{ animationDelay: "1.2s" }}>
+          <div className="w-20 h-[3px] rounded-full bg-white/55" />
+        </div>
 
-<div className="absolute -bottom-10 -right-10 w-48 h-48 rounded-full border-4 border-white/20 wheel-spin flex items-center justify-center">
-  <div className="w-3 h-3 rounded-full bg-white/30" />
-</div>
-    </section>
-   
+        <div className="absolute -bottom-10 -right-10 w-48 h-48 rounded-full border-4 border-white/20 wheel-spin flex items-center justify-center">
+          <div className="w-3 h-3 rounded-full bg-white/30" />
+        </div>
+      </section>
+
 
     </>
   );
