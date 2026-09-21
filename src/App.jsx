@@ -11,7 +11,7 @@ import HeroSection from "./components/HeroSection.jsx";
 import "./index.css";
 import CartPage from "./pages/Cart.jsx";
 import Checkout from "./pages/Checkout.jsx";
-
+import Profile from "./pages/Profile.jsx";
 const App = () => {
   return (
     <>
@@ -43,6 +43,7 @@ const App = () => {
                     />
                     <Route path="/cart" element={<CartPage />} />
                     <Route path="/Checkout" element={<Checkout />} />
+                    <Route path="/profile" element={<Profile />} />
                   </Routes>
                   <Footer />
                 </CartProvider>
