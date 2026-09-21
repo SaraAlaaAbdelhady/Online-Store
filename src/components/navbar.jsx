@@ -1,20 +1,23 @@
 import { useState } from "react";
 import logo from "../assets/logo.png";
+import logod from "../assets/logod.png";
+import { Link, NavLink } from "react-router-dom";
 import { BiHeart, BiMoon, BiSun, BiSearch, BiX } from "react-icons/bi";
 import { CgShoppingCart } from "react-icons/cg";
-import { Link } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 
 function Navbar() {
   const { user } = useUser();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("Home");
-  
-// State للتحكم بالوضع الليلي مع التهيئة الفورية
+  // const [activeTab, setActiveTab] = useState("Home");
+
+  // State للتحكم بالوضع الليلي مع التهيئة الفورية
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const currentTheme = localStorage.getItem("theme");
-    const isDark = currentTheme === "dark" || document.documentElement.classList.contains("dark");
+    const isDark =
+      currentTheme === "dark" ||
+      document.documentElement.classList.contains("dark");
     if (isDark) {
       document.documentElement.classList.add("dark");
     }
@@ -127,28 +130,35 @@ function Navbar() {
             <img
               src={logo}
               alt="Logo"
-              className="h-8 w-auto object-contain sm:h-15"
+              className=" block dark:hidden h-8 w-auto object-contain sm:h-15"
+            />
+            <img
+              src={logod}
+              alt="logo"
+              className="hidden dark:block h-8 w-auto object-contain sm:h-15"
             />
           </Link>
         </div>
-        
+
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-2 rounded-full border border-slate-200 bg-slate-50/80 p-1.5 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 md:flex">
           {navItems.map((item) => {
-            const isActive = activeTab === item.name;
+            // const isActive = activeTab === item.name;
             return (
-              <Link
+              <NavLink
                 key={item.name}
                 to={item.href}
-                onClick={() => setActiveTab(item.name)}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
-                  isActive
-                    ? "text-white shadow-sm bg-[#4f46e5]"
-                    : "text-slate-600 hover:bg-[#4f46e5] hover:text-white dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-blue-400"
-                }`}
+                end={item.href === "/"}
+                className={({ isActive }) =>
+                  `rounded-full px-4 py-2 text-sm font-medium transition-all ${
+                    isActive
+                      ? "text-white shadow-sm bg-[#4f46e5]"
+                      : "text-slate-600 hover:bg-[#4f46e5] hover:text-white dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-blue-400"
+                  }`
+                }
               >
                 {item.name}
-              </Link>
+              </NavLink>
             );
           })}
         </nav>
@@ -175,13 +185,13 @@ function Navbar() {
                 onClick={() => setIsSearchOpen(true)}
                 className="rounded-full p-2 text-slate-600 transition-colors hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400 outline-none"
               >
-                <BiSearch size={20}/>
+                <BiSearch size={20} />
               </button>
             </div>
           )}
 
           {/* Dark Mode Toggle Button */}
-          <button 
+          <button
             onClick={toggleDarkMode}
             className="rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400"
             aria-label="Toggle Dark Mode"
@@ -189,9 +199,18 @@ function Navbar() {
             {isDarkMode ? <BiSun size={20} /> : <BiMoon size={20} />}
           </button>
 
-          <button className="sm:flex rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
+          <NavLink
+            to="/wishlist"
+            className={({ isActive }) =>
+              `rounded-full border p-2 transition-colors hover:bg-[#4f46e5] hover:text-white ${
+                isActive
+                  ? "bg-[#4f46e5] text-white border-[#4f46e5]"
+                  : "border-slate-200 bg-slate-50/80 text-slate-600 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300"
+              }`
+            }
+          >
             <BiHeart size={20} />
-          </button>
+          </NavLink>
 
           <button className="rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
             <Link to={"/Cart"}>
@@ -224,38 +243,40 @@ function Navbar() {
               />
             </svg>
           </button>
-          
+
           {/* Desktop Auth Section (Using Context) */}
-        {/* Desktop Auth Section (Using Context) */}
-{user ? (
-  <Link
-    to="/profile"
-    className="hidden md:inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50/80 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-      <circle cx="12" cy="7" r="4"></circle>
-    </svg>
-    <span>{user.username ? user.username.toUpperCase() : "CUSTOMER"}</span>
-  </Link>
-) : (
-  <Link
-    to="/login"
-    className="hidden md:inline-flex rounded-full bg-blue-500 px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-blue-600"
-  >
-    Login
-  </Link>
-)}
+          {/* Desktop Auth Section (Using Context) */}
+          {user ? (
+            <Link
+              to="/profile"
+              className="hidden md:inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50/80 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span>
+                {user.username ? user.username.toUpperCase() : "CUSTOMER"}
+              </span>
+            </Link>
+          ) : (
+            <Link
+              to="/login"
+              className="hidden md:inline-flex rounded-full bg-blue-500 px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-blue-600"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
 
@@ -278,18 +299,25 @@ function Navbar() {
         <div className="border-b border-slate-200 pb-4 mb-5 flex items-center justify-between dark:border-slate-800">
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-50 border border-slate-200/80 p-1.5 shadow-sm dark:bg-slate-900 dark:border-slate-800">
-              <img
-                src={logo}
-                alt="Logo"
-                className="h-8 w-auto object-contain"
-              />
+              <>
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className="h-8 w-auto object-contain"
+                />
+                <img
+                  src={logod}
+                  alt="logo"
+                  className="hidden dark:block h-8 w-auto object-contain"
+                />
+              </>
             </div>
             <div>
               <h5
                 id="drawer-navigation-label"
                 className="text-sm font-semibold text-slate-800 dark:text-slate-100 mb-0"
               >
-                Koda Store
+               Motors Store
               </h5>
               <span className="text-xs text-slate-500 dark:text-slate-400">
                 Welcome
@@ -326,7 +354,7 @@ function Navbar() {
 
         <div className="overflow-y-auto">
           <div>
-{user ? (
+            {user ? (
               <Link
                 to="/profile"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -346,7 +374,9 @@ function Navbar() {
                   <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                   <circle cx="12" cy="7" r="4"></circle>
                 </svg>
-                <span>{user.username ? user.username.toUpperCase() : "CUSTOMER"}</span>
+                <span>
+                  {user.username ? user.username.toUpperCase() : "CUSTOMER"}
+                </span>
               </Link>
             ) : (
               <Link
@@ -373,34 +403,27 @@ function Navbar() {
             )}
           </div>
           <hr className="border-t border-slate-200 dark:border-slate-800 my-4" />
-          <ul className="space-y-2 font-medium">
-            {navItems.map((item) => {
-              const isActive = activeTab === item.name;
-              return (
-                <li key={item.name}>
-                  <Link
-                    to={item.href}
-                    onClick={() => {
-                      setActiveTab(item.name);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-base transition-all ${
-                      isActive
-                        ? "bg-[#4f46e5]/10 text-[#4f46e5] font-semibold dark:bg-indigo-950/50 dark:text-indigo-400"
-                        : "text-slate-700 hover:bg-slate-100 hover:text-[#4f46e5] dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
-                    }`}
-                  >
-                    <span
-                      className={`${isActive ? "text-[#4f46e5] dark:text-indigo-400" : "text-slate-500 dark:text-slate-400"}`}
-                    >
-                      {item.icon}
-                    </span>
-                    <span>{item.name}</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+         <ul className="space-y-2 font-medium">
+  {navItems.map((item) => (
+    <li key={item.name}>
+      <NavLink
+        to={item.href}
+        end={item.href === "/"}
+        onClick={() => setIsMobileMenuOpen(false)}
+        className={({ isActive }) =>
+          `flex items-center gap-3 px-4 py-3 rounded-2xl text-base transition-all ${
+            isActive
+              ? "bg-[#4f46e5]/10 text-[#4f46e5] font-semibold dark:bg-indigo-950/50 dark:text-indigo-400"
+              : "text-slate-700 hover:bg-slate-100 hover:text-[#4f46e5] dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
+          }`
+        }
+      >
+        <span>{item.icon}</span>
+        <span>{item.name}</span>
+      </NavLink>
+    </li>
+  ))}
+</ul>
         </div>
       </div>
     </header>
