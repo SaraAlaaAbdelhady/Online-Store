@@ -86,7 +86,7 @@ const UserLogin = () => {
     <>
       <Toaster position="top-center" reverseOrder={false} />
 
-      <div className="container flex flex-col gap-y-8 justify-center items-center bg-gray-50 min-h-fit p-2.5">
+      <div className=" flex flex-col gap-y-5 justify-center items-center bg-gray-50 min-h-fit p-2.5 ">
         {/* header section  */}
 
         <AuthHeader headerContent={headerContent} />
@@ -94,7 +94,7 @@ const UserLogin = () => {
         {/* start login form section  */}
 
         <form
-          className="flex flex-col gap-y-2 justify-between w-[35%] bg-white px-5 py-4 rounded-2xl border border-gray-200"
+          className="flex flex-col  justify-between w-[35%] bg-white px-5 py-4 rounded-2xl border border-gray-200 mb-10"
           method="post"
           onSubmit={submitData}
         >
