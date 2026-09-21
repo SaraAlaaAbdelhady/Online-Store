@@ -1,11 +1,35 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { authService } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  // ///////////////////////////////////////            send registration OTP                    /////////////////////////////////////////////
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // لإظهار حالة التحميل إن أردت
+  const navigate = useNavigate();
+
+  // جلب بيانات المستخدم تلقائياً عند تحميل التطبيق إذا كان هناك توكن مخزن
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      const token = localStorage.getItem("token"); // تأكد من اسم المفتاح حسب ما تخزنه عند اللوجن
+      if (token) {
+        try {
+          const res = await authService.getUserProfile();
+          setUser(res.user || res); // ضبط بيانات المستخدم بناءً على شكل استجابة الـ API
+        } catch (error) {
+          console.error("Failed to fetch user profile:", error);
+          localStorage.removeItem("token");
+          setUser(null);
+        }
+      }
+      setLoading(false);
+    };
+
+    fetchUserProfile();
+  }, []);
+
+  // ///////////////////////////////////////           send registration OTP                    /////////////////////////////////////////////
   const sendRegisterOtp = async (userData) => {
     try {
       const res = await authService.sendRegisterOtp(userData);
@@ -15,7 +39,7 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  // ///////////////////////////////////////            verify registration OTP                    /////////////////////////////////////////////
+  // ///////////////////////////////////////           verify registration OTP                    /////////////////////////////////////////////
   const verifyRegisterOtp = async (email, otp) => {
     try {
       const res = await authService.verifyRegisterOtp(email, otp);
@@ -25,14 +49,13 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate();
-
-  // ////////////////////////////////////////////           User login             /////////////////////////////////////////////
-
+  // ////////////////////////////////////////////          User login             /////////////////////////////////////////////
   const login = async (credentials) => {
     try {
       const data = await authService.login(credentials);
+      // إذا كان الـ API يخزن الـ Token تلقائياً أو تحتاج لتخزينه:
+      // if (data.token) localStorage.setItem("token", data.token);
+      
       setUser(data.user || data);
       return data;
     } catch (error) {
@@ -40,16 +63,18 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  //   ///////////////////////////////////////            User logout                    /////////////////////////////////////////////
-
+  //  ///////////////////////////////////////            User logout                    /////////////////////////////////////////////
   const logout = async () => {
-    await authService.logout();
+    try {
+      await authService.logout();
+    } catch (e) {
+      console.error(e);
+    }
     localStorage.removeItem("token");
     setUser(null);
-    // navigate('/login')
   };
 
-  // ///////////////////////////////////////            send forgot password OTP                    /////////////////////////////////////////////
+  // ///////////////////////////////////////           send forgot password OTP                    /////////////////////////////////////////////
   const sendForgotPasswordOtp = async (email) => {
     try {
       const res = await authService.sendForgotPasswordOtp(email);
@@ -59,7 +84,7 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  // ///////////////////////////////////////            verify OTP & reset password                    /////////////////////////////////////////////
+  // ///////////////////////////////////////           verify OTP & reset password                    /////////////////////////////////////////////
   const resetPassword = async (email, otp, newPassword) => {
     try {
       const res = await authService.resetPassword(email, otp, newPassword);
@@ -69,8 +94,7 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  //   ///////////////////////////////////////            get  user profile                    /////////////////////////////////////////////
-
+  //  ///////////////////////////////////////            get  user profile                    /////////////////////////////////////////////
   const getUserProfile = async () => {
     try {
       const res = await authService.getUserProfile();
@@ -80,18 +104,15 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  //   ////////////////////////////////////////     update user by id      ///////////////////////////////////////////
+  //  ////////////////////////////////////////    update user by id   ///////////////////////////////////////////
   const updateUserById = async (id, updatedData) => {
     try {
       const res = await authService.updateUserById(id, updatedData);
-
       return res;
     } catch (error) {
       throw new Error(error.message);
     }
   };
-
-  //   ///////////////////////////////////////           provider                    /////////////////////////////////////////////
 
   return (
     <UserContext.Provider
@@ -99,6 +120,7 @@ export const UserProvider = ({ children }) => {
         sendRegisterOtp,
         verifyRegisterOtp,
         user,
+        loading,
         login,
         logout,
         sendForgotPasswordOtp,
@@ -111,8 +133,6 @@ export const UserProvider = ({ children }) => {
     </UserContext.Provider>
   );
 };
-
-// /////////////////////////////////             custom hook           ///////////////////////////////////////////////////////////
 
 export const useUser = () => {
   const context = useContext(UserContext);
