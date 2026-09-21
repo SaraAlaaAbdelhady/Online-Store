@@ -5,9 +5,16 @@ import { Link, NavLink } from "react-router-dom";
 import { BiHeart, BiMoon, BiSun, BiSearch, BiX } from "react-icons/bi";
 import { CgShoppingCart } from "react-icons/cg";
 import { useUser } from "../contexts/UserContext";
-
+// import { BiHeart, BiMoon, BiSearch, BiX } from "react-icons/bi";
+import { MdOutlineLightMode } from "react-icons/md";
+// import { CgShoppingCart } from "react-icons/cg";
+// import { Link } from "react-router-dom";
+import { useTheme } from "../contexts/ThemeContext";
 function Navbar() {
   const { user } = useUser();
+
+
+  const { theme, toggleTheme } = useTheme();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   // const [activeTab, setActiveTab] = useState("Home");
@@ -218,33 +225,9 @@ function Navbar() {
             </Link>
           </button>
 
-          <button
-            onClick={() => setIsMobileMenuOpen(true)}
-            className="block md:hidden rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 shadow-sm transition-colors hover:bg-white hover:text-brand-600 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400"
-            type="button"
-            aria-controls="drawer-navigation"
-          >
-            <span className="sr-only">Open menu</span>
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
 
-          {/* Desktop Auth Section (Using Context) */}
+         
+
           {/* Desktop Auth Section (Using Context) */}
           {user ? (
             <Link

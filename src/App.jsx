@@ -14,6 +14,9 @@ import Profile from "./pages/Profile.jsx";
 import MyOrders from "./pages/MyOrders.jsx";
 import OrderDetails from "./pages/OrderDetails.jsx";
 import "./index.css";
+import UserLogin from "./auth/UserLogin.jsx";
+import ForgetPassword from "./auth/ForgetPassword.jsx";
+import VerifyOTP from "./auth/VerifyOTP.jsx";
 
 const App = () => {
   return (
@@ -28,6 +31,9 @@ const App = () => {
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/" element={<HeroSection />} />
+                    <Route path="/login" element={<UserLogin />} />
+                    <Route path="/verify-otp" element={<VerifyOTP />} />
+                    <Route path="/forgot-password" element={<ForgetPassword />} />
                     <Route
                       path="/products"
                       element={
