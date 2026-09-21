@@ -1,8 +1,13 @@
 @import "tailwindcss";
-body {
-  background: #ffffff;
-  /* background-color: rgb(12, 67, 116); */
+body{
+    background: #ffffff;
+    /* background-color: rgb(12, 67, 116); */
+    
+font-family: var(--font-serif); 
+/* ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif */
 
-  font-family: var(--font-serif);
+
 }
+
+@custom-variant dark (&:where(.dark, .dark *));
 

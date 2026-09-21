@@ -14,13 +14,14 @@ const VerifyOTP = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const email = searchParams.get("email");
+  const mode = searchParams.get("mode");
 
   ///////////////////// start the states section //////////////////////////////
 
   const inputRefs = useRef([]);
   const [isLoading, setIsLoading] = useState(false);
   const [otpData, setOtpData] = useState(["", "", "", "", "", ""]);
-  const [newPassword, setNewPassword] = useState("");
+  const [newPassword, setNewPassword, verifyRegisterOtp] = useState("");
 
   ///////////////// handel resend OTP section //////////////////////////////////
 
@@ -56,7 +57,7 @@ const VerifyOTP = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [time]);
+  }, []);
 
   const handleResend = async (e) => {
     e.preventDefault();
@@ -70,7 +71,7 @@ const VerifyOTP = () => {
     }
   };
 
-  ////////////// submit the new password with the OTP //////////////////////
+  ////////////// submit the new password with the OTP if the mode is reset old password //////////////////////
 
   const createNewPassword = async (e) => {
     e.preventDefault();
@@ -79,26 +80,20 @@ const VerifyOTP = () => {
 
     const OTP = otpData.join("");
     if (OTP.length < 6) {
-      ToastMessage("Please Enter Complete OTP");
+      ToastMessage("error", "Please Enter Complete OTP");
     } else if (newPassword.trim() == "") {
-        ToastMessage("Please Enter New Password");
-      } else if (newPassword.trim().length < 6) {
-        ToastMessage("Password must be at least 6 characters");
-      }
-    
+      ToastMessage("error", "Please Enter New Password");
+    } else if (newPassword.trim().length < 6) {
+      ToastMessage("error", "Password must be at least 6 characters");
+    }
 
     if (OTP.length == 6 && newPassword.trim().length >= 6) {
       try {
         setIsLoading(true);
         const res = await resetPassword(email, OTP, Newspaper);
 
-        toast.success("Password updated successfully", {
-          style: {
-            background: "#111",
-            color: "#fff",
-            fontFamily: "sans-serif",
-          },
-        });
+        ToastMessage("success", "Password updated successfully");
+        
         setTimeout(() => {
           navigate("/");
         }, 500);
@@ -107,13 +102,42 @@ const VerifyOTP = () => {
 
         //////////// sent error message in case of error status 404  //////////////
         if (error?.message.includes("404")) {
-          ToastMessage("OTP not found");
+          ToastMessage("error", "OTP not found");
         }
         //////////// sent error message in case of error status 400  //////////////
         else if (error?.message.includes("400")) {
-          ToastMessage("Invalid or expired OTP");
+          ToastMessage("error", "Invalid or expired OTP");
         } else {
-          ToastMessage("Server Error");
+          ToastMessage("error", "Server Error");
+        }
+      }
+    }
+  };
+
+  const newEmailOtp = async (e) => {
+    e.preventDefault();
+
+    const OTP = otpData.join("");
+    if (OTP.length < 6) {
+      ToastMessage("error", "Please Enter Complete OTP");
+    }
+
+    if (OTP.length == 6) {
+      try {
+        setIsLoading(true);
+        const res = await verifyRegisterOtp(email, OTP);
+
+        ToastMessage("success", "Email Created Successfully");
+        setTimeout(() => {
+          navigate("/");
+        }, 500);
+      } catch (error) {
+        setIsLoading(false);
+        //////////// sent error message in case of error status 400  //////////////
+        if (error?.message.includes("400")) {
+          ToastMessage("error", "Invalid or expired OTP");
+        } else {
+          ToastMessage("error", "Server Error");
         }
       }
     }
@@ -140,7 +164,7 @@ const VerifyOTP = () => {
         <form
           className="flex flex-col gap-y-2 justify-between w-[35%] bg-white px-5 py-4 rounded-2xl border border-gray-200"
           method="post"
-          onSubmit={createNewPassword}
+          onSubmit={mode ? createNewPassword : newEmailOtp}
         >
           {/* ////////// OTP section ////////////////// */}
           <div className="flex gap-2 oto w-full my-2 justify-center">
@@ -185,23 +209,25 @@ const VerifyOTP = () => {
 
           {/* ////////// new password section ////////////////// */}
 
-          <div className="flex flex-col gap-1 email w-full  mt-2 mb-3">
-            <label className=" text-gray-500 text-[.82rem] font-medium font-sans">
-              New Password
-            </label>
+          {mode ? (
+            <div className="flex flex-col gap-1 email w-full  mt-2 mb-3">
+              <label className=" text-gray-500 text-[.82rem] font-medium font-sans">
+                New Password
+              </label>
 
-            <div className="input-holder text-gray-700 w-full relative">
-              <input
-                className="w-full py-2.5 px-2 pl-5 font-sans rounded-xl border border-gray-300 outline-0  focus:ring-2 focus:ring-[#5d10ec] transition"
-                placeholder="Enter new password"
-                type="password"
-                name="password"
-                onChange={(e) => {
-                  setNewPassword(e.target.value);
-                }}
-              />
+              <div className="input-holder text-gray-700 w-full relative">
+                <input
+                  className="w-full py-2.5 px-2 pl-5 font-sans rounded-xl border border-gray-300 outline-0  focus:ring-2 focus:ring-[#5d10ec] transition"
+                  placeholder="Enter new password"
+                  type="password"
+                  name="password"
+                  onChange={(e) => {
+                    setNewPassword(e.target.value);
+                  }}
+                />
+              </div>
             </div>
-          </div>
+          ) : null}
 
           {/* ////////// sign in btn ////////////////// */}
 

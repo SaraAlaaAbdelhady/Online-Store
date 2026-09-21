@@ -1,10 +1,13 @@
 import { useState } from "react";
 import logo from "../assets/logo.png";
-import { BiHeart, BiMoon, BiSearch,  BiX } from "react-icons/bi";
+import { BiHeart, BiMoon, BiSearch, BiX } from "react-icons/bi";
+import { MdOutlineLightMode } from "react-icons/md";
 import { CgShoppingCart } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import { useTheme } from "../contexts/ThemeContext";
 
 function Navbar() {
+  const { theme, toggleTheme } = useTheme();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("Home");
@@ -151,24 +154,28 @@ function Navbar() {
                 onClick={() => setIsSearchOpen(true)}
                 className="rounded-full p-2 text-slate-600 transition-colors hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400 outline-none "
               >
-                <BiSearch size={20}/>
+                <BiSearch size={20} />
               </button>
             </div>
           )}
 
-          <button className="rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors  hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
-            <BiMoon size={20} />
+          {/* the night and light mood button */}
+
+          <button
+            onClick={toggleTheme}
+            className="rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors  hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400"
+          >
+            {theme == "dark" ? <MdOutlineLightMode /> : <BiMoon size={20} />}
           </button>
 
           <button className="sm:flex rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
-            <BiHeart size={20}   />
+            <BiHeart size={20} />
           </button>
 
           <button className="rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors  hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
-          <Link to={"/cart"}>
-           <CgShoppingCart size={20} />
-          </Link>
-           
+            <Link to={"/cart"}>
+              <CgShoppingCart size={20} />
+            </Link>
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(true)}

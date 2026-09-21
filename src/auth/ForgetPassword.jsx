@@ -23,19 +23,13 @@ const ForgetPassword = () => {
     // Check if the use enter the email or not
 
     if (email.email.trim() == "") {
-      ToastMessage("Please Enter Your Email");
+      ToastMessage("error","Please Enter Your Email");
     } else {
       try {
         setIsLoading(true);
         const res = await sendForgotPasswordOtp(email);
         if (res) {
-          toast.success("✅ OTP Sent To Your Email", {
-            style: {
-              background: "#111",
-              color: "#fff",
-              fontFamily: "sans-serif",
-            },
-          });
+         ToastMessage("success", "OTP Sent To Your Email")
           setTimeout(() => {
             navigate(
               `/verify-otp?email=${encodeURIComponent(email.email)}&mode=reset`,
@@ -45,7 +39,7 @@ const ForgetPassword = () => {
       } catch (error) {
         setIsLoading(false);
         console.log(error.status);
-        ToastMessage("User not found");
+        ToastMessage("error","User not found");
       }
     }
   };

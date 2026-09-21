@@ -58,13 +58,9 @@ const UserLogin = () => {
         setIsLoading(true);
         const response = await login(formData);
         if (response) {
-          toast.success("Logged in Successfully", {
-            style: {
-              background: "#111",
-              color: "#fff",
-              fontFamily: "sans-serif",
-            },
-          });
+          
+         ToastMessage("success","Logged in Successfully")
+
           setTimeout(() => {
             navigate("/");
           }, 500);
@@ -73,7 +69,7 @@ const UserLogin = () => {
         setIsLoading(false);
 
         console.log(error);
-        ToastMessage("Invalid email or password.")
+        ToastMessage("error","Invalid email or password.")
       }
     }
   };
