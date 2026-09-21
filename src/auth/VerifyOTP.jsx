@@ -7,7 +7,7 @@ import { Newspaper } from "lucide-react";
 import { ToastMessage } from "../components/Auth/ToastMessage";
 
 const VerifyOTP = () => {
-  const { resetPassword, sendForgotPasswordOtp } = useUser();
+  const { resetPassword, sendForgotPasswordOtp, verifyRegisterOtp} = useUser();
 
   /////////////////// get user data from URL  //////////////////
 
@@ -21,7 +21,7 @@ const VerifyOTP = () => {
   const inputRefs = useRef([]);
   const [isLoading, setIsLoading] = useState(false);
   const [otpData, setOtpData] = useState(["", "", "", "", "", ""]);
-  const [newPassword, setNewPassword, verifyRegisterOtp] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   ///////////////// handel resend OTP section //////////////////////////////////
 
@@ -57,12 +57,12 @@ const VerifyOTP = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [time]);
 
   const handleResend = async (e) => {
     e.preventDefault();
     try {
-      //   await sendForgotPasswordOtp(email);
+        await sendForgotPasswordOtp(email);
 
       sessionStorage.setItem("otpExpiry", Date.now() + 60000);
       setTime(60);
