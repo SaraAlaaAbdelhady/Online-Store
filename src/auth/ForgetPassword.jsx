@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import AuthHeader from "../components/Auth/AuthHeader";
 import { CiMail } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
-import toast, { Toaster } from "react-hot-toast";
-import { Check } from "lucide-react";
+import  { Toaster } from "react-hot-toast";
+// import { Check } from "lucide-react";
 import { ToastMessage } from "../components/Auth/ToastMessage";
-import './Auth.css'
+// import './Auth.css'
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
@@ -56,7 +56,8 @@ const ForgetPassword = () => {
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="container flex flex-col gap-y-8 justify-center items-center bg-gray-50 min-h-fit p-5.5">
+
+      <div className=" flex flex-col gap-y-5 justify-center items-center bg-gray-50 min-h-fit p-2.5 dark:bg-[#0f172a] ">
         {/* header section  */}
 
         <AuthHeader headerContent={headerContent} />
@@ -64,20 +65,20 @@ const ForgetPassword = () => {
         {/* start login form section  */}
 
         <form
-          className="flex flex-col gap-y-2 justify-between w-[35%] bg-white px-5 py-4 rounded-2xl border border-gray-200"
+          className="flex flex-col gap-y-2 justify-between w-[35%] bg-white px-5 py-4 rounded-2xl border border-gray-200 mb-10 dark:bg-[#1d293d93] dark:border-[#454e65]  "
           method="post"
           onSubmit={submitEmail}
         >
           {/* ////////// email section ////////////////// */}
 
           <div className="flex flex-col gap-1 email w-full  mt-2 mb-3">
-            <label className=" text-gray-500 text-[.82rem] font-medium font-sans">
+            <label className=" text-gray-500 text-[.82rem] font-medium ">
               Email
             </label>
 
             <div className="input-holder text-gray-700 w-full relative">
               <input
-                className="w-full py-2.5 px-2 pl-12 font-sans rounded-xl border border-gray-400 outline-0 focus:border-transparent  focus:ring-2 focus:ring-[#5d10ec] transition"
+                className="w-full py-2 px-1 pl-11  rounded-xl border border-gray-300 outline-0 focus:border-transparent  focus:ring-2 focus:ring-[#5d10ec] transition dark:bg-white "
                 placeholder="you@example.com"
                 type="email"
                 name="email"

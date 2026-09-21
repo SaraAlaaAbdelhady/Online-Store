@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 const HeroSection = () => {
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 dark:from-slate-950 dark:via-gray-900 dark:to-slate-900 min-h-screen text-white px-4 sm:px-8 py-12 flex items-center shadow-sm transition-colors duration-500">      <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 mt-16 md:mt-0">
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 dark:from-slate-950 dark:via-slate-850  dark:to-slate-900 min-h-screen text-white px-4 sm:px-8 py-12 flex items-center shadow-sm transition-colors duration-500 dark:shadow-blue-800
+      
+      ">      <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 mt-16 md:mt-0">
         
 
         <div className="w-full md:w-1/2 text-center md:text-left">

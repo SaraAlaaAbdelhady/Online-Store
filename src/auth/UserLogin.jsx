@@ -100,13 +100,13 @@ const UserLogin = () => {
           {/* ////////// email section ////////////////// */}
 
           <div className="flex flex-col gap-1 email w-full  mt-2 mb-3">
-            <label className=" text-gray-500 text-[.82rem] font-medium font-sans">
+            <label className=" text-gray-500 text-[.82rem] font-medium ">
               Email
             </label>
 
             <div className="input-holder w-full relative">
               <input
-                className={`w-full py-2 px-1 pl-11 font-sans rounded-xl border ${errors.emailError ? "border-red-500" : "border-gray-400"} outline-0 focus:border-transparent  focus:ring-2 focus:ring-[#5d10ec] transition `}
+                className={`w-full py-2 px-1 pl-11  rounded-xl border ${errors.emailError ? "border-red-500" : "border-gray-300"} outline-0 focus:border-transparent  focus:ring-2 focus:ring-[#5d10ec] transition `}
                 placeholder="you@example.com"
                 type="email"
                 name="email"
