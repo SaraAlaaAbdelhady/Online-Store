@@ -7,12 +7,12 @@ export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  //   ////////////////////////////////////////     fetch all products      ///////////////////////////////////////////
+  // fetch all products
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const data = await productService.getAllProducts();
-        setProducts(data);
+        const data = await productService.getAllProductsForFeatured();
+        setProducts(data.products);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -22,7 +22,7 @@ export const ProductProvider = ({ children }) => {
     fetchProducts();
   }, []);
 
-  //   ////////////////////////////////////////     get  product by id      ///////////////////////////////////////////
+  // get  product by id
   const getProductById = async (id) => {
     try {
       const prodect = await productService.getProductById(id);
@@ -32,7 +32,7 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
-  //   ////////////////////////////////////////    search  product      ///////////////////////////////////////////
+  // search  product
 
   const searchProducts = async (filters) => {
     try {
@@ -43,7 +43,7 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
-  //   ////////////////////////////////////////     get product reviews      ///////////////////////////////////////////
+  // get product reviews
 
   const getProductReviews = async (id) => {
     try {
@@ -54,7 +54,7 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
-  //   ////////////////////////////////////////     add a review      ///////////////////////////////////////////
+  // add a review
 
   const addReview = async (id, reviewData) => {
     try {
@@ -65,7 +65,7 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
-  //   ////////////////////////////////////////     delete a review      ///////////////////////////////////////////
+  // delete a review
 
   const deleteReview = async (id, reviewId) => {
     try {
@@ -76,7 +76,7 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
-  //   ///////////////////////////////////////           provider                    /////////////////////////////////////////////
+  // provider
   return (
     <ProductContext.Provider
       value={{
@@ -94,7 +94,7 @@ export const ProductProvider = ({ children }) => {
   );
 };
 
-// /////////////////////////////////             custom hook           ///////////////////////////////////////////////////////////
+// custom hook
 export const useProduct = () => {
   const context = useContext(ProductContext);
   if (!context) {
