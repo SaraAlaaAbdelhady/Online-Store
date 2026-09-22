@@ -19,6 +19,7 @@ import "./index.css";
 import UserLogin from "./auth/UserLogin.jsx";
 import ForgetPassword from "./auth/ForgetPassword.jsx";
 import VerifyOTP from "./auth/VerifyOTP.jsx";
+import Shop from "./pages/Shop.jsx";
 
 const App = () => {
   return (
@@ -47,6 +48,7 @@ const App = () => {
                         </div>
                       }
                     />
+                    <Route path="/shop" element={<Shop />} />
                     <Route path="/categories" element={<categories />} />
                     <Route path="/cart" element={<CartPage />} />
                     <Route path="/Checkout" element={<Checkout />} />
