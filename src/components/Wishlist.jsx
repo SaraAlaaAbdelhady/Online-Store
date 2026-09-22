@@ -106,7 +106,7 @@ const Wishlist = () => {
         </div>
       )}
 
-      <div className="mx-auto max-w-[1200px]">
+      <div className="mx-auto max-w-[1200px] px-10  sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
