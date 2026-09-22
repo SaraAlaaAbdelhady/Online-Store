@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useProduct } from "../contexts/ProductContext";
@@ -50,7 +49,7 @@ function ViewProduct() {
   const { id } = useParams();
 
   const { getProductById } = useProduct();
-  const { addToCart } = useCart();
+  const { addItemToCart } = useCart();
 
   const {
     wishlist,
@@ -120,6 +119,10 @@ function ViewProduct() {
     );
   }
 
+  // =========================
+  // API PRODUCT DATA
+  // =========================
+
   const {
     _id,
     name,
@@ -127,18 +130,22 @@ function ViewProduct() {
     category,
     images = [],
     price,
-    originalPrice,
-    inStock,
-    rating = 0,
-    reviewCount = 0,
+    discountPrice,
+    stock,
+    averageRating = 0,
+    numReviews = 0,
     description,
   } = product;
 
   const productId = _id;
 
-  /*
-    Handle different possible image formats
-  */
+  // Stock comes from API
+  const inStock = Number(stock) > 0;
+
+  // =========================
+  // IMAGE
+  // =========================
+
   const productImage =
     typeof images?.[0] === "string"
       ? images[0]
@@ -147,50 +154,70 @@ function ViewProduct() {
         images?.[0]?.src ||
         "/placeholder-product.png";
 
-  /*
-    Wishlist
-  */
+  // =========================
+  // WISHLIST
+  // =========================
+
   const wishlisted = wishlist.some(
     (item) => item._id === productId
   );
 
-  /*
-    Discount
-  */
-  const discountPct =
-    originalPrice && originalPrice > price
-      ? Math.round(
-          ((originalPrice - price) / originalPrice) * 100
-        )
-      : null;
+  // =========================
+  // PRICE / DISCOUNT
+  // =========================
 
-  /*
-    Quantity
-  */
+  const hasDiscount =
+    Number(discountPrice) > 0 &&
+    Number(discountPrice) < Number(price);
+
+  const currentPrice = hasDiscount
+    ? Number(discountPrice)
+    : Number(price);
+
+  const discountPct = hasDiscount
+    ? Math.round(
+        ((Number(price) - Number(discountPrice)) /
+          Number(price)) *
+          100
+      )
+    : 0;
+
+  // =========================
+  // QUANTITY
+  // =========================
+
   const decreaseQty = () => {
     setQuantity((q) => Math.max(1, q - 1));
   };
 
   const increaseQty = () => {
-    setQuantity((q) => q + 1);
+    setQuantity((q) => {
+      if (q >= Number(stock)) {
+        return q;
+      }
+
+      return q + 1;
+    });
   };
 
-  /*
-    Add to cart
-  */
+  // =========================
+  // ADD TO CART
+  // =========================
+
   const handleAddToCart = async () => {
     if (!inStock) return;
 
     try {
-      await addToCart(product, quantity);
+      await addItemToCart(productId, quantity);
     } catch (error) {
       console.error("Error adding product to cart:", error);
     }
   };
 
-  /*
-    Wishlist
-  */
+  // =========================
+  // WISHLIST
+  // =========================
+
   const handleWishlistToggle = async () => {
     try {
       if (wishlisted) {
@@ -208,7 +235,8 @@ function ViewProduct() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
-        {/* ================= IMAGE ================= */}
+        {/* IMAGE */}
+
         <div className="bg-gray-50 rounded-lg flex items-center justify-center p-8 min-h-[450px]">
 
           <img
@@ -216,16 +244,19 @@ function ViewProduct() {
             alt={name}
             className="max-h-[420px] max-w-full object-contain"
             onError={(e) => {
-              e.currentTarget.src = "/placeholder-product.png";
+              e.currentTarget.src =
+                "/placeholder-product.png";
             }}
           />
 
         </div>
 
-        {/* ================= DETAILS ================= */}
+        {/* DETAILS */}
+
         <div>
 
           {/* Brand + Category */}
+
           <div className="flex flex-wrap gap-2 mb-3">
 
             {brand && (
@@ -242,28 +273,36 @@ function ViewProduct() {
 
           </div>
 
-          {/* Title */}
+          {/* Product Name */}
+
           <h1 className="text-3xl font-bold text-gray-900 mb-3">
             {name}
           </h1>
 
-          {/* Rating */}
+          {/* Rating + Stock */}
+
           <div className="flex items-center gap-2 mb-4">
 
             <div className="flex">
               {[1, 2, 3, 4, 5].map((n) => (
                 <StarIcon
                   key={n}
-                  filled={n <= Math.round(Number(rating))}
+                  filled={
+                    n <= Math.round(Number(averageRating))
+                  }
                 />
               ))}
             </div>
 
             <span className="text-sm text-gray-400">
-              ({reviewCount})
+              ({numReviews})
             </span>
 
-            {!inStock && (
+            {inStock ? (
+              <span className="text-xs font-medium bg-green-50 text-green-600 px-2.5 py-1 rounded-full ml-2">
+                In Stock
+              </span>
+            ) : (
               <span className="text-xs font-medium bg-red-50 text-red-500 px-2.5 py-1 rounded-full ml-2">
                 Out of Stock
               </span>
@@ -272,19 +311,17 @@ function ViewProduct() {
           </div>
 
           {/* Price */}
+
           <div className="flex items-baseline gap-3 mb-6">
 
             <span className="text-3xl font-bold text-indigo-600">
-              EGP{" "}
-              {typeof price === "number"
-                ? price.toLocaleString()
-                : price}
+              EGP {currentPrice.toLocaleString()}
             </span>
 
-            {discountPct && (
+            {hasDiscount && (
               <>
                 <span className="text-lg text-gray-400 line-through">
-                  EGP {originalPrice.toLocaleString()}
+                  EGP {Number(price).toLocaleString()}
                 </span>
 
                 <span className="text-xs font-semibold bg-red-50 text-red-500 px-2 py-0.5 rounded-full">
@@ -296,9 +333,11 @@ function ViewProduct() {
           </div>
 
           {/* Quantity + Cart + Wishlist */}
+
           <div className="flex items-center gap-4 mb-8">
 
             {/* Quantity */}
+
             <div className="flex items-center border border-gray-200 rounded-lg">
 
               <button
@@ -324,6 +363,7 @@ function ViewProduct() {
             </div>
 
             {/* Add To Cart */}
+
             <button
               onClick={handleAddToCart}
               disabled={!inStock}
@@ -339,6 +379,7 @@ function ViewProduct() {
             </button>
 
             {/* Wishlist */}
+
             <button
               onClick={handleWishlistToggle}
               aria-label={
@@ -353,7 +394,16 @@ function ViewProduct() {
 
           </div>
 
+          {/* Available Stock */}
+
+          {inStock && (
+            <p className="text-sm text-gray-500 mb-6">
+              {stock} items available
+            </p>
+          )}
+
           {/* Description */}
+
           {description && (
             <div>
               <h2 className="text-lg font-semibold text-gray-900 mb-2">
