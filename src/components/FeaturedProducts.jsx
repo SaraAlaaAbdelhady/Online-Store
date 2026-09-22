@@ -202,6 +202,7 @@ setTimeout(() => {
               (item) => item._id === product._id
             );
 
+                        const inStock = Number(product.stock) > 0;
             return (
               <div
                 key={product._id}
@@ -319,27 +320,31 @@ setTimeout(() => {
                   </div>
 
                   {/* Add To Cart */}
-                  <button
+                                  <button
                     type="button"
-                    disabled={isAdding}
+                    disabled={isAdding || !inStock}
                     onClick={(e) =>
                       handleAddToCart(e, product._id)
                     }
                     className={`mt-auto flex h-11 w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold text-white transition ${
-                      isAdding
+                      !inStock
+                        ? "cursor-not-allowed bg-gray-400 dark:bg-gray-700"
+                        : isAdding
                         ? "cursor-not-allowed bg-indigo-400 dark:bg-gray-700"
                         : "bg-indigo-600 hover:bg-indigo-700 dark:bg-[#2368e9] dark:hover:bg-[#0ec4ec]"
                     }`}
                   >
                     <i
                       className={
-                        isAdding
+                        !inStock
+                          ? "fa-solid fa-ban"
+                          : isAdding
                           ? "fa-solid fa-spinner fa-spin"
                           : "fa-solid fa-cart-shopping"
                       }
                     ></i>
 
-                    {isAdding ? "Adding..." : "Add to Cart"}
+                    {!inStock ? "Out of Stock" : isAdding ? "Adding..." : "Add to Cart"}
                   </button>
 
                 </div>
