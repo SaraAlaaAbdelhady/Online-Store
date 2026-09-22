@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useProduct } from "../contexts/ProductContext";
 import { useCart } from "../contexts/CartContext";
 import { useWishlist } from "../contexts/WishlistContext";
+import { useNavigate } from "react-router-dom";
+
 
 const FeaturedProducts = () => {
   const { products, loading } = useProduct();
@@ -13,8 +15,11 @@ const FeaturedProducts = () => {
     removeFromWishlist,
   } = useWishlist();
 
+
   const [addingProductId, setAddingProductId] = useState(null);
   const [toast, setToast] = useState("");
+    const navigate = useNavigate();
+
 
 const featuredProducts = (products || [])
     .filter((product) => product.featured === true)
@@ -180,6 +185,8 @@ const featuredProducts = (products || [])
             return (
               <div
                 key={product._id}
+                                        onClick={() => navigate(`/products/${product._id}`)}
+
                 className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-slate-700 dark:bg-slate-900"
               >
 

@@ -20,6 +20,8 @@ import UserLogin from "./auth/UserLogin.jsx";
 import ForgetPassword from "./auth/ForgetPassword.jsx";
 import VerifyOTP from "./auth/VerifyOTP.jsx";
 import Register from "./components/Register.jsx";
+import Shop from "./pages/Shop.jsx";
+import ViewProduct from "./pages/ViewProduct.jsx";
 
 const App = () => {
   return (
@@ -48,6 +50,8 @@ const App = () => {
                         </div>
                       }
                     />
+                    <Route path="/products/:id" element={<ViewProduct />} />
+                    <Route path="/shop" element={<Shop />} />
                     <Route path="/categories" element={<categories />} />
                     <Route path="/cart" element={<CartPage />} />
                     <Route path="/Checkout" element={<Checkout />} />
