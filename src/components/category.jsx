@@ -86,7 +86,7 @@ function ShopByCategory(){
     }, [])
 
     return(
-        <section className="px-12  lg:px-20   py-12 ">
+        <section className="px-12  lg:px-20   py-12  " id="categories" >
             <div className="mb-10 text-center">
                 <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-200">Shop By Category</h2>
                 <p className="mt-2 text-base text-slate-500 dark:text-slate-400">Browse our wide range of categories</p>

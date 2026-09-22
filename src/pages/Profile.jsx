@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useUser } from "../contexts/UserContext";
 import { BiMap, BiLock, BiLogOut, BiPlus, BiCheck } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const { user, logout, updateUserById, sendForgotPasswordOtp, resetPassword, getUserProfile } = useUser();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (getUserProfile) {
@@ -110,7 +112,7 @@ function Profile() {
   }
 
   return (
-    <div className="max-w-4xl  mx-auto px-4 py-10 min-h-screen relative dark:bg-slate-950">
+    <div className="max-w-4xl mx-auto px-10 py-10 min-h-screen relative dark:bg-slate-950">
             {errorMessage && (
         <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-slate-900 text-white px-5 py-2.5 rounded-full shadow-lg flex items-center gap-2.5 text-sm dark:bg-slate-800 border border-slate-700">
           <span className="w-5 h-5 bg-red-600 rounded-full flex items-center justify-center text-white text-xs font-bold">✕</span>
@@ -404,8 +406,10 @@ function Profile() {
         </div>
         <div>
           <button 
-            onClick={logout}
-            className="w-full flex items-center justify-center gap-2 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-semibold transition-colors shadow-sm shadow-red-500/20"
+onClick={() => {
+    logout();
+    navigate("/login");
+  }}            className="w-full flex items-center justify-center gap-2 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-semibold transition-colors shadow-sm shadow-red-500/20"
           >
             <BiLogOut size={20} />
             <span>Logout</span>

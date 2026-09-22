@@ -219,11 +219,18 @@ function Navbar() {
             <BiHeart size={20} />
           </NavLink>
 
-          <button className="rounded-full border border-slate-200 bg-slate-50/80 p-2 text-slate-600 transition-colors hover:bg-[#4f46e5] hover:text-white dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-brand-400">
-            <Link to={"/Cart"}>
-              <CgShoppingCart size={20} />
-            </Link>
-          </button>
+         <NavLink
+  to="/cart"
+  className={({ isActive }) =>
+    `rounded-full border p-2 transition-colors hover:bg-[#4f46e5] hover:text-white ${
+      isActive
+        ? "bg-[#4f46e5] text-white border-[#4f46e5]"
+        : "border-slate-200 bg-slate-50/80 text-slate-600 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300"
+    }`
+  }
+>
+  <CgShoppingCart size={20} />
+</NavLink>
 
 
          

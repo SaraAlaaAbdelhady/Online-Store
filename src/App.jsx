@@ -5,6 +5,8 @@ import { UserProvider } from "./contexts/UserContext";
 import { WishlistProvider } from "./contexts/WishlistContext.jsx";
 import { CartProvider } from "./contexts/CartContext.jsx";
 import Navbar from "./components/navbar.jsx";
+import FeaturedProducts from "./components/FeaturedProducts.jsx";
+import Wishlist from "./components/Wishlist.jsx";
 import Home from "./pages/Home.jsx";
 import Footer from "./components/home/Footer.jsx";
 import HeroSection from "./components/HeroSection.jsx";
@@ -33,7 +35,10 @@ const App = () => {
                     <Route path="/" element={<HeroSection />} />
                     <Route path="/login" element={<UserLogin />} />
                     <Route path="/verify-otp" element={<VerifyOTP />} />
-                    <Route path="/forgot-password" element={<ForgetPassword />} />
+                    <Route
+                      path="/forgot-password"
+                      element={<ForgetPassword />}
+                    />
                     <Route
                       path="/products"
                       element={
@@ -42,17 +47,16 @@ const App = () => {
                         </div>
                       }
                     />
-                    <Route
-                      path="/categories"
-                      element={
-                       <categories/>
-                      }
-                    />
+                    <Route path="/categories" element={<categories />} />
                     <Route path="/cart" element={<CartPage />} />
                     <Route path="/Checkout" element={<Checkout />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/orders" element={<MyOrders />} />
                     <Route path="/orders/:id" element={<OrderDetails />} />
+
+                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<FeaturedProducts />} />
+                    <Route path="/wishlist" element={<Wishlist />} />
                   </Routes>
                   <Footer />
                 </CartProvider>
