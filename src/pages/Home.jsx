@@ -3,13 +3,14 @@ import HowItWorks from "../components/home/HowItWorks";
 import StayUpdated from "../components/home/StayUpdated";
 import FeaturedProducts from "../components/FeaturedProducts.jsx";
 import HeroSection from "../components/HeroSection.jsx";
+// import Footer from "../components/home/Footer.jsx";
 
 const Home = () => {
   return (
     <>
-    <HeroSection/>
-    
-      <ShopByCategory  />
+      <HeroSection />
+
+      <ShopByCategory />
       <FeaturedProducts />
       <HowItWorks />
       <StayUpdated />

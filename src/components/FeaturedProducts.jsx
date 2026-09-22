@@ -104,7 +104,7 @@ const featuredProducts = (products || [])
 
   return (
 
-    <section className="relative bg-white px-4 py-12 dark:bg-slate-950 sm:px-6 lg:px-8">
+    <section className="relative  px-4 py-12 sm:px-6 lg:px-8">
 
       {/* Toast */}
       {toast && (

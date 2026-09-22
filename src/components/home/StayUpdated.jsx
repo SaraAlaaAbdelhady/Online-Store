@@ -2,7 +2,7 @@ import { HiOutlineEnvelope } from "react-icons/hi2";
 
 function StayUpdated() {
     return (
-        <div className="bg-gray-50 dark:bg-slate-900 px-12  lg:px-20   py-12 flex items-center justify-center text-white">
+        <div className="bg-gray-50px-12  lg:px-20   py-12 flex items-center justify-center text-white">
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-slate-950 dark:to-slate-800 rounded-2xl text-center p-10 space-y-6 w-full">
                 < HiOutlineEnvelope className="w-12 h-12 mx-auto text-blue-100" />
                 <h2 className="text-3xl font-bold">Stay Updated</h2>

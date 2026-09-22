@@ -2,7 +2,7 @@ import { HiOutlineShoppingBag, HiOutlineCreditCard, HiOutlineTruck } from "react
 
 function HowItWorks() {
     return (
-        <div className="bg-gray-50 dark:bg-slate-900 p-16 flex flex-col justify-center items-center gap-16 text-slate-800 dark:text-slate-100">
+        <div className="  p-16 flex flex-col justify-center items-center gap-16 text-slate-800 dark:text-slate-100 dark:bg-slate-800">
             <h2 className="text-3xl font-bold">How It Works</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="text-center space-y-2">

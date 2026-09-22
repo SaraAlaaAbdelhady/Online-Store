@@ -6,10 +6,10 @@ import { BiHeart, BiMoon, BiSun, BiSearch, BiX } from "react-icons/bi";
 import { CgShoppingCart } from "react-icons/cg";
 import { useUser } from "../contexts/UserContext";
 // import { BiHeart, BiMoon, BiSearch, BiX } from "react-icons/bi";
-import { MdOutlineLightMode } from "react-icons/md";
+// import { MdOutlineLightMode } from "react-icons/md";
 // import { CgShoppingCart } from "react-icons/cg";
 // import { Link } from "react-router-dom";
-import { useTheme } from "../contexts/ThemeContext";
+// import { useTheme } from "../contexts/ThemeContext";
 function Navbar() {
   const { user } = useUser();
 
@@ -127,7 +127,7 @@ function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950">
+    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3 min-w-0">
           <Link
@@ -148,7 +148,7 @@ function Navbar() {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-2 rounded-full border border-slate-200 bg-slate-50/80 p-1.5 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 md:flex">
+        <nav className="hidden items-center gap-2 rounded-full border border-slate-200 bg-slate-50/80 p-1.5 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:flex">
           {navItems.map((item) => {
             // const isActive = activeTab === item.name;
             return (

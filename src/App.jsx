@@ -45,9 +45,7 @@ const App = () => {
                     <Route
                       path="/categories"
                       element={
-                        <div className="p-10 text-white text-2xl font-bold">
-                          categories
-                        </div>
+                       <categories/>
                       }
                     />
                     <Route path="/cart" element={<CartPage />} />

@@ -19,18 +19,14 @@
 }
 
 body {
-  background: #ffffff;
   font-family: var(--font-serif);
 }
-body{
-    background: #ffffff;
-    /* background-color: rgb(12, 67, 116); */
-    
-font-family: var(--font-serif); 
-/* ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif */
 
-
+.dark body {
+  background: #0f172a;
 }
+
+
 
 /* @custom-variant dark (&:where(.dark, .dark *)); */
 
