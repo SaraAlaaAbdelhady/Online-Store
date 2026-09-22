@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useProduct } from "../contexts/ProductContext";
 import { useCart } from "../contexts/CartContext";
 import { useWishlist } from "../contexts/WishlistContext";
@@ -48,7 +48,8 @@ const CartIcon = () => (
 );
 
 function ViewProduct() {
-  const { id } = useParams();
+   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { getProductById } = useProduct();
   const { addItemToCart } = useCart();
@@ -64,7 +65,12 @@ function ViewProduct() {
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [toast, setToast] = useState("");
 
+  const showToast = (message) => {
+    setToast(message);
+    setTimeout(() => setToast(""), 2500);
+  };
   useEffect(() => {
     let cancelled = false;
 
@@ -209,8 +215,17 @@ const inStock = Number(stock) > 0;
 
     try {
       await addItemToCart(_id, quantity);
+      showToast("Added to cart");
     } catch (error) {
       console.error("Error adding product to cart:", error);
+      if (error?.message?.toLowerCase().includes("not authorized")) {
+        showToast("Please sign in first");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2500);
+      } else {
+        showToast("Something went wrong");
+      }
     }
   };
 
@@ -218,20 +233,41 @@ const inStock = Number(stock) > 0;
   // WISHLIST
   // =========================
 
-  const handleWishlistToggle = async () => {
+   const handleWishlistToggle = async () => {
     try {
       if (wishlisted) {
         await removeFromWishlist(_id);
+        showToast("Removed from wishlist");
       } else {
         await addToWishlist(_id);
+        showToast("Added to wishlist");
       }
     } catch (error) {
       console.error("Error updating wishlist:", error);
+      if (error?.message?.toLowerCase().includes("not authorized")) {
+        showToast("Please sign in first");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2500);
+      } else {
+        showToast("Something went wrong");
+      }
     }
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-10">
+    <div className="max-w-6xl mx-auto px-12 py-8 sm:px-6 lg:px-10">      
+
+      {toast && (
+        <div className="fixed right-6 top-6 z-50 flex w-fit max-w-[220px] items-center gap-2 rounded-xl bg-[#111827] px-3 py-2.5 shadow-xl dark:bg-slate-800">
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-500">
+            <i className="fa-solid fa-check text-[10px] text-white"></i>
+          </div>
+          <span className="whitespace-nowrap text-xs font-medium text-white">
+            {toast}
+          </span>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
@@ -466,11 +502,11 @@ const inStock = Number(stock) > 0;
 
           {description && (
             <div>
-              <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-200 mb-2">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-200 mb-2 ">
                 Description
               </h2>
 
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed ">
                 {description}
               </p>
             </div>

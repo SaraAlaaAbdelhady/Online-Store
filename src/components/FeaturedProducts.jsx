@@ -33,22 +33,33 @@ const featuredProducts = (products || [])
     }, 2500);
   };
 
-  const handleAddToCart = async (productId) => {
-    try {
+const handleAddToCart = async (e, productId) => {
+  e.stopPropagation();
+      try {
       setAddingProductId(productId);
 
       await addItemToCart(productId, 1);
 
       showToast("Added to cart");
-    } catch (error) {
-      console.error("Error adding product to cart:", error);
-    } finally {
+   } catch (error) {
+  console.error("Error updating wishlist:", error);
+
+  if (error?.message?.toLowerCase().includes("not authorized")) {
+    showToast("Please login first");
+   setTimeout(() => {
+    navigate("/login");
+  }, 2500);
+  } else {
+    showToast("Something went wrong");
+  }
+} finally {
       setAddingProductId(null);
     }
   };
 
-  const handleWishlistToggle = async (productId) => {
-    console.log("Wishlist product ID:", productId);
+const handleWishlistToggle = async (e, productId) => {
+  e.stopPropagation();
+      console.log("Wishlist product ID:", productId);
 
     try {
       const isInWishlist = wishlist.some(
@@ -62,9 +73,17 @@ const featuredProducts = (products || [])
         await addToWishlist(productId);
         showToast("Added to wishlist");
       }
-    } catch (error) {
-      console.error("Error updating wishlist:", error);
-    }
+} catch (error) {
+  console.error("Error updating wishlist:", error);
+
+  if (error?.message?.toLowerCase().includes("not authorized")) {
+    showToast("Please login first");
+setTimeout(() => {
+    navigate("/login");
+  }, 2500);  } else {
+    showToast("Something went wrong");
+  }
+}
   };
 
   if (loading) {
@@ -113,13 +132,14 @@ const featuredProducts = (products || [])
 
       {/* Toast */}
       {toast && (
-        <div className="fixed right-6 top-6 z-50 flex w-fit max-w-[220px] items-center gap-2 rounded-xl bg-[#111827] px-3 py-2.5 shadow-xl dark:bg-gray-900">
+                  <div className="fixed right-6 top-6 z-50 flex w-fit max-w-[220px] items-center text-black gap-2 rounded-xl bg-white px-3 py-2.5 shadow-xl dark:bg-white">
+
 
           <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-500">
             <i className="fa-solid fa-check text-[10px] text-white"></i>
           </div>
 
-          <span className="whitespace-nowrap text-xs font-medium text-white">
+          <span className="whitespace-nowrap font-medium ">
             {toast}
           </span>
         </div>
@@ -215,8 +235,8 @@ const featuredProducts = (products || [])
                           ? "Remove from wishlist"
                           : "Add to wishlist"
                       }
-                      onClick={() =>
-                        handleWishlistToggle(product._id)
+                      onClick={(e) =>
+                        handleWishlistToggle(e,product._id)
                       }
                       className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white transition dark:bg-gray-800 ${
                         isInWishlist
@@ -302,8 +322,8 @@ const featuredProducts = (products || [])
                   <button
                     type="button"
                     disabled={isAdding}
-                    onClick={() =>
-                      handleAddToCart(product._id)
+                    onClick={(e) =>
+                      handleAddToCart(e, product._id)
                     }
                     className={`mt-auto flex h-11 w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold text-white transition ${
                       isAdding

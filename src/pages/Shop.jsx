@@ -117,19 +117,29 @@ function Shop() {
     setTimeout(() => setToast(""), 2500);
   };
 
-  const handleAddToCart = async (productId) => {
+   const handleAddToCart = async (e, productId) => {
+    e.stopPropagation();
     try {
       setAddingProductId(productId);
       await addItemToCart(productId, 1);
       showToast("Added to cart");
     } catch (err) {
       console.error("Error adding product to cart:", err);
+      if (err?.message?.toLowerCase().includes("not authorized")) {
+        showToast("Please login first");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2500);
+      } else {
+        showToast("Something went wrong");
+      }
     } finally {
       setAddingProductId(null);
     }
   };
 
-  const handleWishlistToggle = async (productId) => {
+    const handleWishlistToggle = async (e, productId) => {
+    e.stopPropagation();
     try {
       const isInWishlist = wishlist.some((item) => item._id === productId);
 
@@ -142,6 +152,14 @@ function Shop() {
       }
     } catch (err) {
       console.error("Error updating wishlist:", err);
+      if (err?.message?.toLowerCase().includes("not authorized")) {
+        showToast("Please login first");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2500);
+      } else {
+        showToast("Something went wrong");
+      }
     }
   };
 
@@ -153,7 +171,7 @@ function Shop() {
           <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-500">
             <i className="fa-solid fa-check text-xs text-white"></i>
           </div>
-          <span className="whitespace-nowrap text-xs font-medium text-white">
+          <span className="whitespace-nowrap  font-medium text-white">
             {toast}
           </span>
         </div>
@@ -271,7 +289,7 @@ function Shop() {
 
             {/* Loading Skeleton */}
             {loading ? (
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
                 {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
                   <div
                     key={item}
@@ -307,7 +325,7 @@ function Shop() {
             ) : (
               /* Products Grid */
               <>
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
                   {results.map((product) => {
                     const price = Number(product.price);
                     const discountPrice = Number(product.discountPrice);
@@ -356,8 +374,8 @@ function Shop() {
                                   ? "Remove from wishlist"
                                   : "Add to wishlist"
                               }
-                              onClick={() => handleWishlistToggle(product._id)}
-                              className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white dark:bg-slate-800 shadow-sm transition ${
+                              onClick={(e) => handleWishlistToggle(e, product._id)}
+                                                            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white dark:bg-slate-800 shadow-sm transition ${
                                 isInWishlist
                                   ? "text-red-500"
                                   : "text-gray-400 dark:text-slate-400 hover:text-red-500"
@@ -433,7 +451,7 @@ function Shop() {
                           <button
                             type="button"
                             disabled={!inStock || isAdding}
-                            onClick={() => handleAddToCart(product._id)}
+                            onClick={(e) => handleAddToCart(e,product._id)}
                             className={`mt-auto flex h-11 w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold text-white transition ${
                               !inStock
                               ? "cursor-not-allowed bg-gray-400"

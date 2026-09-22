@@ -27,31 +27,12 @@ export const WishlistProvider = ({ children }) => {
   }, []);
 
   // Add to wishlist
+    // Add to wishlist
   const addToWishlist = async (productId) => {
     try {
       const res = await wishlistService.addToWishlist(productId);
 
-      // Keep the product in the local state
-      // so the heart stays filled after adding.
-      setWishlist((currentWishlist) => {
-        const alreadyExists = currentWishlist.some(
-          (item) => item._id === productId
-        );
-
-        if (alreadyExists) {
-          return currentWishlist;
-        }
-
-        // If API returned the added product, use it.
-        const addedProduct = res.wishlist?.products?.find(
-          (item) => item._id === productId
-        );
-
-        return [
-          ...currentWishlist,
-          addedProduct || { _id: productId },
-        ];
-      });
+      await fetchWishlist();
 
       return res;
     } catch (error) {
