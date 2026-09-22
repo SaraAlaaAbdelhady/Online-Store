@@ -313,6 +313,7 @@ function Shop() {
 
                   const image = product.images?.[0]?.url;
                   const rating = Number(product.averageRating) || 0;
+                  const inStock = Number(product.stock) > 0;
                   const isAdding = addingProductId === product._id;
                   const isInWishlist = wishlist.some(
                     (item) => item._id === product._id
@@ -322,7 +323,7 @@ function Shop() {
                     <div
                       key={product._id}
                         onClick={() => navigate(`/products/${product._id}`)}
-                    
+
                       className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900"
                     >
                       {/* Top Badges */}
@@ -414,24 +415,33 @@ function Shop() {
                         </div>
 
                         <button
-                          type="button"
-                          disabled={isAdding}
-                          onClick={() => handleAddToCart(product._id)}
-                          className={`mt-auto flex h-11 w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold text-white transition ${
-                            isAdding
-                              ? "cursor-not-allowed bg-indigo-400"
-                              : "bg-indigo-600 hover:bg-indigo-700"
-                          }`}
-                        >
-                          <i
-                            className={
-                              isAdding
-                                ? "fa-solid fa-spinner fa-spin"
-                                : "fa-solid fa-cart-shopping"
-                            }
-                          ></i>
-                          {isAdding ? "Adding..." : "Add to Cart"}
-                        </button>
+  type="button"
+  disabled={!inStock || isAdding}
+  onClick={() => handleAddToCart(product._id)}
+  className={`mt-auto flex h-11 w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold text-white transition ${
+    !inStock
+      ? "cursor-not-allowed bg-gray-400"
+      : isAdding
+      ? "cursor-not-allowed bg-indigo-400"
+      : "bg-indigo-600 hover:bg-indigo-700"
+  }`}
+>
+  <i
+    className={
+      isAdding
+        ? "fa-solid fa-spinner fa-spin"
+        : !inStock
+        ? "fa-solid fa-ban"
+        : "fa-solid fa-cart-shopping"
+    }
+  ></i>
+
+  {!inStock
+    ? "Out of Stock"
+    : isAdding
+    ? "Adding..."
+    : "Add to Cart"}
+</button>
                       </div>
                     </div>
                   );
