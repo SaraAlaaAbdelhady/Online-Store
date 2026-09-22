@@ -262,7 +262,7 @@ function Navbar() {
           ) : (
             <Link
               to="/login"
-              className="hidden md:inline-flex rounded-full bg-blue-500 px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-blue-600"
+              className="hidden md:inline-flex rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-blue-600"
             >
               Login
             </Link>

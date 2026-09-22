@@ -19,6 +19,7 @@ import "./index.css";
 import UserLogin from "./auth/UserLogin.jsx";
 import ForgetPassword from "./auth/ForgetPassword.jsx";
 import VerifyOTP from "./auth/VerifyOTP.jsx";
+import Register from "./components/Register.jsx";
 
 const App = () => {
   return (
@@ -57,6 +58,8 @@ const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/" element={<FeaturedProducts />} />
                     <Route path="/wishlist" element={<Wishlist />} />
+                     <Route path="/register" element={<Register />} />
+                  <Route path="/verify-otp" element={<VerifyOTP />} />
                   </Routes>
                   <Footer />
                 </CartProvider>
@@ -66,6 +69,9 @@ const App = () => {
         </UserProvider>
       </BrowserRouter>
     </>
+
+
+
   );
 };
 

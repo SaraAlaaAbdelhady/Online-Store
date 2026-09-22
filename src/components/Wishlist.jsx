@@ -76,7 +76,7 @@ const Wishlist = () => {
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
             My Wishlist
           </h2>
-          <div className="mt-8 rounded-2xl border border-dashed border-gray-300 py-16 text-center dark:border-gray-700">
+          <div className="mt-8 rounded-2xl border border-dashed bg-gray-100 dark:bg-slate-900 border-gray-300 py-16 text-center dark:border-gray-700">
             <i className="fa-regular fa-heart text-4xl text-gray-300 dark:text-slate-700"></i>
             <p className="mt-4 text-gray-500 dark:text-slate-400">
               Your wishlist is empty.

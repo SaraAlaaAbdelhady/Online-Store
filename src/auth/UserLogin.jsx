@@ -106,7 +106,7 @@ const UserLogin = () => {
 
             <div className="input-holder w-full relative">
               <input
-                className={`w-full py-2 px-1 pl-11  rounded-xl border ${errors.emailError ? "border-red-500" : "border-gray-300"} outline-0 focus:border-transparent  focus:ring-2 focus:ring-[#5d10ec] transition `}
+                className={`w-full py-2 px-1 pl-11 bg-white rounded-xl border ${errors.emailError ? "border-red-500" : "border-gray-300"} outline-0 focus:border-transparent  focus:ring-2 focus:ring-[#5d10ec] transition `}
                 placeholder="you@example.com"
                 type="email"
                 name="email"
@@ -118,7 +118,7 @@ const UserLogin = () => {
             </div>
 
             {errors.emailError && (
-              <span className="block text-red-500 mt-1 text-xs font-sans">
+              <span className="block text-red-500 mt-1 text-xs ">
                 {errors.emailError}
               </span>
             )}
@@ -127,12 +127,12 @@ const UserLogin = () => {
           {/* ////////// password section ////////////////// */}
 
           <div className="password w-full flex flex-col gap-1 mb-4">
-            <label className="text-gray-500 text-[.82rem] font-medium font-sans">
+            <label className="text-gray-500 text-[.82rem] font-medium ">
               Password
             </label>
             <div className="input-holder text-gray-700 w-full relative">
               <input
-                className={`w-full py-2 px-1 pl-11 rounded-xl border ${errors.passError ? "border-red-500" : "border-gray-400"} outline-0 focus:border-transparent  focus:ring-2 focus:ring-[#5d10ec] transition`}
+                className={`w-full py-2 px-1 pl-11 bg-white rounded-xl border ${errors.passError ? "border-red-500" : "border-gray-400"} outline-0 focus:border-transparent  focus:ring-2 focus:ring-[#5d10ec] transition`}
                 placeholder="••••••••"
                 type="password"
                 name="password"
@@ -144,7 +144,7 @@ const UserLogin = () => {
             </div>
 
             {errors.emailError && (
-              <span className="block text-red-500 mt-1 text-xs font-sans">
+              <span className="block text-red-500 mt-1">
                 {errors.passError}
               </span>
             )}
@@ -152,7 +152,7 @@ const UserLogin = () => {
 
           <div className="forget ml-auto">
             <Link
-              className="font-sans text-[.94rem] block mb-2 text-blue-700 hover:text-blue-500"
+              className=" text-[.94rem] block mb-2 text-blue-700 hover:text-blue-500"
               to="/forgot-password"
             >
               Forgot password?
@@ -162,18 +162,19 @@ const UserLogin = () => {
           {/* ////////// sign in btn ////////////////// */}
 
           <input
-            className="w-full text-white font-sans font-semibold p-2 rounded-xl bg-linear-to-tl from-[#5d10ec] to-[#2368e9] opacity-90 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-[0_5px_5px_-3px_rgba(0,0,0,0.3)] transition-all duration-300 mb-3"
+            className="w-full text-white  font-semibold p-2 rounded-xl bg-linear-to-tl from-[#5d10ec] to-[#2368e9] opacity-90 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-[0_5px_5px_-3px_rgba(0,0,0,0.3)] transition-all duration-300 mb-3"
             type="submit"
             value={`${isLoading ? "Sign in..." : "Sign in"}`}
             disabled={isLoading}
           />
 
           <div className="flex items-center justify-center">
-            <p className="font-sans text-md text-gray-600">
+            <p className=" text-md text-gray-600">
               Don't have an account?{" "}
               <Link
+              
                 className="font-medium text-[.88rem] tracking-wide text-blue-700 hover:text-blue-900"
-                to=""
+                to="/register"
               >
                 Sign up
               </Link>
