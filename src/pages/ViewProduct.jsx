@@ -123,24 +123,23 @@ function ViewProduct() {
   // API PRODUCT DATA
   // =========================
 
-  const {
-    _id,
-    name,
-    brand,
-    category,
-    images = [],
-    price,
-    discountPrice,
-    stock,
-    averageRating = 0,
-    numReviews = 0,
-    description,
-  } = product;
+const {
+  _id,
+  name,
+  brand,
+  category,
+  images = [],
+  price,
+  discountPrice,
+  stock,
+  averageRating = 0,
+  numReviews = 0,
+  description,
+} = product;
 
-  const productId = _id;
+const inStock = Number(stock) > 0;
 
-  // Stock comes from API
-  const inStock = Number(stock) > 0;
+
 
   // =========================
   // IMAGE
