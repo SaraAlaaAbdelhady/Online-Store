@@ -3,6 +3,7 @@ import { useProduct } from "../contexts/ProductContext";
 import { useCart } from "../contexts/CartContext";
 import { useWishlist } from "../contexts/WishlistContext";
 import { useNavigate } from "react-router-dom";
+import Pagination from "../components/Pagination";
 
 const CATEGORIES = [
   { value: "", label: "All" },
@@ -42,6 +43,9 @@ function Shop() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [paginationLoading, setPaginationLoading] = useState(false);
 
   const [addingProductId, setAddingProductId] = useState(null);
   const [toast, setToast] = useState("");
@@ -60,7 +64,8 @@ function Shop() {
   // ////////////// fetch products whenever filters change //////////////
   const fetchResults = useCallback(async () => {
     try {
-      setLoading(true);
+      setLoading(page === 1);
+      setPaginationLoading(page > 1)
       setError("");
 
       const data = await searchProducts({
@@ -69,6 +74,7 @@ function Shop() {
         minPrice: debouncedMinPrice || undefined,
         maxPrice: debouncedMaxPrice || undefined,
         sort: sort || undefined,
+        page,
       });
 
       const productsList = Array.isArray(data)
@@ -80,12 +86,14 @@ function Shop() {
         : [];
 
       setResults(productsList);
+      setTotalPages(data?.totalPages || 1)
     } catch (err) {
       setError(err.message || "Failed to load products.");
     } finally {
       setLoading(false);
+      setPaginationLoading(false)
     }
-  }, [debouncedSearch, category, debouncedMinPrice, debouncedMaxPrice, sort, searchProducts]);
+  }, [debouncedSearch, category, debouncedMinPrice, debouncedMaxPrice, sort, page, searchProducts]);
 
   useEffect(() => {
     fetchResults();
@@ -97,6 +105,7 @@ function Shop() {
     setMinPrice("");
     setMaxPrice("");
     setSort("");
+    setPage(1);
   };
 
   const hasActiveFilters =
@@ -297,156 +306,170 @@ function Shop() {
               </div>
             ) : (
               /* Products Grid */
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
-                {results.map((product) => {
-                  const price = Number(product.price);
-                  const discountPrice = Number(product.discountPrice);
+              <>
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+                  {results.map((product) => {
+                    const price = Number(product.price);
+                    const discountPrice = Number(product.discountPrice);
 
-                  const hasValidDiscount =
-                    discountPrice > 0 && discountPrice < price;
+                    const hasValidDiscount =
+                      discountPrice > 0 && discountPrice < price;
 
-                  const currentPrice = hasValidDiscount ? discountPrice : price;
+                    const currentPrice = hasValidDiscount ? discountPrice : price;
 
-                  const discountPercentage = hasValidDiscount
-                    ? Math.round(((price - discountPrice) / price) * 100)
-                    : 0;
+                    const discountPercentage = hasValidDiscount
+                      ? Math.round(((price - discountPrice) / price) * 100)
+                      : 0;
 
-                  const image = product.images?.[0]?.url;
-                  const rating = Number(product.averageRating) || 0;
-                  const inStock = Number(product.stock) > 0;
-                  const isAdding = addingProductId === product._id;
-                  const isInWishlist = wishlist.some(
-                    (item) => item._id === product._id
-                  );
+                    const image = product.images?.[0]?.url;
+                    const rating = Number(product.averageRating) || 0;
+                    const inStock = Number(product.stock) > 0;
+                    const isAdding = addingProductId === product._id;
+                    const isInWishlist = wishlist.some(
+                      (item) => item._id === product._id
+                    );
 
-                  return (
-                    <div
-                      key={product._id}
-                        onClick={() => navigate(`/products/${product._id}`)}
+                    return (
+                      <div
+                        key={product._id}
+                          onClick={() => navigate(`/products/${product._id}`)}
 
-                      className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900"
-                    >
-                      {/* Top Badges */}
-                      <div className="absolute left-0 right-0 top-3 z-20 flex items-center justify-between gap-2 px-3">
-                        <span className="max-w-[48%] truncate rounded-full bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 text-xs font-medium text-indigo-700 dark:text-indigo-300">
-                          {product.category || "electronics"}
-                        </span>
+                        className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+                      >
+                        {/* Top Badges */}
+                        <div className="absolute left-0 right-0 top-3 z-20 flex items-center justify-between gap-2 px-3">
+                          <span className="max-w-[48%] truncate rounded-full bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 text-xs font-medium text-indigo-700 dark:text-indigo-300">
+                            {product.category || "electronics"}
+                          </span>
 
-                        <div className="flex items-center gap-2">
-                          {discountPercentage > 0 && (
-                            <span className="rounded-full bg-red-50 dark:bg-red-950/40 px-3 py-1 text-xs font-semibold text-red-500 dark:text-red-300">
-                              -{discountPercentage}%
-                            </span>
+                          <div className="flex items-center gap-2">
+                            {discountPercentage > 0 && (
+                              <span className="rounded-full bg-red-50 dark:bg-red-950/40 px-3 py-1 text-xs font-semibold text-red-500 dark:text-red-300">
+                                -{discountPercentage}%
+                              </span>
+                            )}
+
+                            <button
+                              type="button"
+                              aria-label={
+                                isInWishlist
+                                  ? "Remove from wishlist"
+                                  : "Add to wishlist"
+                              }
+                              onClick={() => handleWishlistToggle(product._id)}
+                              className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white dark:bg-slate-800 shadow-sm transition ${
+                                isInWishlist
+                                  ? "text-red-500"
+                                  : "text-gray-400 dark:text-slate-400 hover:text-red-500"
+                              }`}
+                            >
+                              <i
+                                className={
+                                  isInWishlist
+                                    ? "fa-solid fa-heart text-sm"
+                                    : "fa-regular fa-heart text-sm"
+                                }
+                              ></i>
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Image */}
+                        <div className="relative z-0 h-[260px] overflow-hidden bg-gray-50 dark:bg-slate-800">
+                          {image ? (
+                            <img
+                              src={image}
+                              alt={product.name}
+                              className={`h-full w-full object-cover transition-transform duration-500 ${inStock ? "group-hover:scale-105" : "opacity-50"}`}
+                            />
+                          ) : (
+                            <div className="flex h-full items-center justify-center text-gray-400 dark:text-slate-500">
+                              <i className="fa-regular fa-image text-4xl"></i>
+                            </div>
                           )}
+
+                          {!inStock && (
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+                              <span className="rounded-full bg-red-100 dark:bg-red-900/30 px-2 py-1 text-sm font-semibold text-red-700 dark:text-red-400">Out of Stock</span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Product Info */}
+                        <div className="flex min-h-[210px] flex-col p-5">
+                          <h3 className="line-clamp-2 min-h-[48px] text-base font-semibold leading-6 text-gray-900 dark:text-slate-100">
+                            {product.name}
+                          </h3>
+
+                          <div className="mt-2 flex items-center gap-2">
+                            <div className="flex items-center gap-0.5">
+                              {[1, 2, 3, 4, 5].map((star) => (
+                                <i
+                                  key={star}
+                                  className={`fa-solid fa-star text-sm ${
+                                    star <= Math.round(rating)
+                                      ? "text-yellow-400"
+                                      : "text-gray-200 dark:text-slate-700"
+                                  }`}
+                                ></i>
+                              ))}
+                            </div>
+                            <span className="text-xs text-gray-500 dark:text-slate-400">
+                              ({product.numReviews || 0})
+                            </span>
+                          </div>
+
+                          <div className="mt-3 flex min-h-[28px] items-center gap-2">
+                            <span className="text-xl font-bold text-indigo-600 dark:text-indigo-400">
+                              EGP {currentPrice.toLocaleString()}
+                            </span>
+                            {hasValidDiscount && (
+                              <span className="text-sm text-gray-400 dark:text-slate-500 line-through">
+                                EGP {price.toLocaleString()}
+                              </span>
+                            )}
+                          </div>
 
                           <button
                             type="button"
-                            aria-label={
-                              isInWishlist
-                                ? "Remove from wishlist"
-                                : "Add to wishlist"
-                            }
-                            onClick={() => handleWishlistToggle(product._id)}
-                            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white dark:bg-slate-800 shadow-sm transition ${
-                              isInWishlist
-                                ? "text-red-500"
-                                : "text-gray-400 dark:text-slate-400 hover:text-red-500"
+                            disabled={!inStock || isAdding}
+                            onClick={() => handleAddToCart(product._id)}
+                            className={`mt-auto flex h-11 w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold text-white transition ${
+                              !inStock
+                              ? "cursor-not-allowed bg-gray-400"
+                              : isAdding
+                              ? "cursor-not-allowed bg-indigo-400"
+                              : "bg-indigo-600 hover:bg-indigo-700"
                             }`}
                           >
                             <i
                               className={
-                                isInWishlist
-                                  ? "fa-solid fa-heart text-sm"
-                                  : "fa-regular fa-heart text-sm"
+                                isAdding
+                                ? "fa-solid fa-spinner fa-spin"
+                                : !inStock
+                                ? "fa-solid fa-ban"
+                                : "fa-solid fa-cart-shopping"
                               }
                             ></i>
+
+                            {!inStock
+                              ? "Out of Stock"
+                              : isAdding
+                              ? "Adding..."
+                              : "Add to Cart"}
                           </button>
                         </div>
                       </div>
-
-                      {/* Image */}
-                      <div className="relative z-0 h-[260px] overflow-hidden bg-gray-50 dark:bg-slate-800">
-                        {image ? (
-                          <img
-                            src={image}
-                            alt={product.name}
-                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-                        ) : (
-                          <div className="flex h-full items-center justify-center text-gray-400 dark:text-slate-500">
-                            <i className="fa-regular fa-image text-4xl"></i>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Product Info */}
-                      <div className="flex min-h-[210px] flex-col p-5">
-                        <h3 className="line-clamp-2 min-h-[48px] text-base font-semibold leading-6 text-gray-900 dark:text-slate-100">
-                          {product.name}
-                        </h3>
-
-                        <div className="mt-2 flex items-center gap-2">
-                          <div className="flex items-center gap-0.5">
-                            {[1, 2, 3, 4, 5].map((star) => (
-                              <i
-                                key={star}
-                                className={`fa-solid fa-star text-sm ${
-                                  star <= Math.round(rating)
-                                    ? "text-yellow-400"
-                                    : "text-gray-200 dark:text-slate-700"
-                                }`}
-                              ></i>
-                            ))}
-                          </div>
-                          <span className="text-xs text-gray-500 dark:text-slate-400">
-                            ({product.numReviews || 0})
-                          </span>
-                        </div>
-
-                        <div className="mt-3 flex min-h-[28px] items-center gap-2">
-                          <span className="text-xl font-bold text-indigo-600 dark:text-indigo-400">
-                            EGP {currentPrice.toLocaleString()}
-                          </span>
-                          {hasValidDiscount && (
-                            <span className="text-sm text-gray-400 dark:text-slate-500 line-through">
-                              EGP {price.toLocaleString()}
-                            </span>
-                          )}
-                        </div>
-
-                        <button
-  type="button"
-  disabled={!inStock || isAdding}
-  onClick={() => handleAddToCart(product._id)}
-  className={`mt-auto flex h-11 w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold text-white transition ${
-    !inStock
-      ? "cursor-not-allowed bg-gray-400"
-      : isAdding
-      ? "cursor-not-allowed bg-indigo-400"
-      : "bg-indigo-600 hover:bg-indigo-700"
-  }`}
->
-  <i
-    className={
-      isAdding
-        ? "fa-solid fa-spinner fa-spin"
-        : !inStock
-        ? "fa-solid fa-ban"
-        : "fa-solid fa-cart-shopping"
-    }
-  ></i>
-
-  {!inStock
-    ? "Out of Stock"
-    : isAdding
-    ? "Adding..."
-    : "Add to Cart"}
-</button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
+                <Pagination 
+                  page={page}
+                  totalPages={totalPages}
+                  onPageChange={setPage}
+                  paginationLoading={paginationLoading}
+                />
+              </>
             )}
           </div>
         </div>

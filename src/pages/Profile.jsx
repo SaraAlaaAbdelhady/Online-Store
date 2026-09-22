@@ -112,7 +112,7 @@ function Profile() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-10 py-10 min-h-screen relative dark:bg-slate-950">
+    <div className="max-w-4xl mx-auto px-10 py-10 min-h-screen relative">
             {errorMessage && (
         <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-slate-900 text-white px-5 py-2.5 rounded-full shadow-lg flex items-center gap-2.5 text-sm dark:bg-slate-800 border border-slate-700">
           <span className="w-5 h-5 bg-red-600 rounded-full flex items-center justify-center text-white text-xs font-bold">✕</span>
@@ -133,7 +133,7 @@ function Profile() {
       </h1>
 
       <div className="space-y-6">
-                <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm dark:bg-slate-900 dark:border-slate-800">
+                <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm dark:bg-slate-800 dark:border-slate-700">
           
           {!isEditingProfile ? (
             <div className="space-y-6">
@@ -252,7 +252,7 @@ function Profile() {
             </div>
           )}
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm dark:bg-slate-900 dark:border-slate-800">
+        <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm dark:bg-slate-800 dark:border-slate-700">
           <div className="flex items-center gap-2 mb-4 text-slate-800 dark:text-white font-semibold">
             <BiMap className="text-indigo-600 text-xl" />
             <span>Addresses</span>
@@ -281,7 +281,7 @@ function Profile() {
                 setAddressForm({...addressForm, country: e.target.value});
                 if(errorMessage) setErrorMessage("");
               }}
-              className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-transparent text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:border-slate-800 dark:bg-slate-950"
+              className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-transparent text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:border-slate-700 dark:bg-slate-900"
             />
             <input
               type="text"
@@ -291,7 +291,7 @@ function Profile() {
                 setAddressForm({...addressForm, city: e.target.value});
                 if(errorMessage) setErrorMessage("");
               }}
-              className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-transparent text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:border-slate-800 dark:bg-slate-950"
+              className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-transparent text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:border-slate-700 dark:bg-slate-900"
             />
             <input
               type="text"
@@ -301,14 +301,14 @@ function Profile() {
                 setAddressForm({...addressForm, street: e.target.value});
                 if(errorMessage) setErrorMessage("");
               }}
-              className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-transparent text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:border-slate-800 dark:bg-slate-950"
+              className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-transparent text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:border-slate-700 dark:bg-slate-900"
             />
             <input
               type="text"
               placeholder="Building"
               value={addressForm.building}
               onChange={(e) => setAddressForm({...addressForm, building: e.target.value})}
-              className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-transparent text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:border-slate-800 dark:bg-slate-950"
+              className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-transparent text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:border-slate-700 dark:bg-slate-900"
             />
           </div>
 
@@ -318,7 +318,7 @@ function Profile() {
               placeholder="Postal code"
               value={addressForm.postalCode}
               onChange={(e) => setAddressForm({...addressForm, postalCode: e.target.value})}
-              className="w-full sm:w-1/2 px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-transparent text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:border-slate-800 dark:bg-slate-950"
+              className="w-full sm:w-1/2 px-4 py-2.5 rounded-xl border border-slate-200 text-sm bg-transparent text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:border-slate-700 dark:bg-slate-900"
             />
           </div>
 
@@ -330,7 +330,7 @@ function Profile() {
             <span>Add Address</span>
           </button>
         </div>
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm dark:bg-slate-900 dark:border-slate-800">
+        <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm dark:bg-slate-800 dark:border-slate-700">
           <div className="flex items-center gap-2 mb-3 text-slate-800 dark:text-white font-semibold">
             <BiLock className="text-indigo-600 text-xl" />
             <span>Change Password</span>

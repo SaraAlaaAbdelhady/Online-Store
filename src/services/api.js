@@ -135,7 +135,7 @@ export const productService = {
 
     async searchProducts(filters) {
         try {
-            const { search, category, minPrice, maxPrice, sort } = filters;
+            const { search, category, minPrice, maxPrice, sort, page } = filters;
 
             const queryParts = [];
             if (search) queryParts.push(`search=${search}`);
@@ -143,6 +143,7 @@ export const productService = {
             if (minPrice) queryParts.push(`minPrice=${minPrice}`);
             if (maxPrice) queryParts.push(`maxPrice=${maxPrice}`);
             if (sort) queryParts.push(`sort=${sort}`);
+            if (page) queryParts.push(`page=${page}`)
 
             const queryString = queryParts.join('&');
             const res = await api.get(`/products/search?${queryString}`);

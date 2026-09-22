@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { useProduct } from "../contexts/ProductContext";
 import { useCart } from "../contexts/CartContext";
 import { useWishlist } from "../contexts/WishlistContext";
+import LoadingSpinner from "../components/LoadingSpinner";
+import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 
 const StarIcon = ({ filled }) => (
   <svg
@@ -13,7 +15,7 @@ const StarIcon = ({ filled }) => (
     stroke={filled ? "#FBBF24" : "#D1D5DB"}
     strokeWidth="1.5"
   >
-    <path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4 3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z" />
+    <path d="M12 3.5l2.75 5.57 6.15.89-4.45 4.34 1.05 6.13L12 17.54l-5.5 2.89 1.05-6.13L3.1 9.96l6.15-.89L12 3.5z" />
   </svg>
 );
 
@@ -61,6 +63,7 @@ function ViewProduct() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [selectedImage, setSelectedImage] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -97,9 +100,7 @@ function ViewProduct() {
 
   if (loading) {
     return (
-      <div className="max-w-6xl mx-auto px-6 py-16 text-gray-500">
-        Loading product...
-      </div>
+      <LoadingSpinner />
     );
   }
 
@@ -146,11 +147,11 @@ const inStock = Number(stock) > 0;
   // =========================
 
   const productImage =
-    typeof images?.[0] === "string"
-      ? images[0]
-      : images?.[0]?.url ||
-        images?.[0]?.secure_url ||
-        images?.[0]?.src ||
+    typeof images?.[selectedImage] === "string"
+      ? images[selectedImage]
+      : images?.[selectedImage]?.url ||
+        images?.[selectedImage0]?.secure_url ||
+        images?.[selectedImage]?.src ||
         "/placeholder-product.png";
 
   // =========================
@@ -158,7 +159,7 @@ const inStock = Number(stock) > 0;
   // =========================
 
   const wishlisted = wishlist.some(
-    (item) => item._id === productId
+    (item) => item._id === _id
   );
 
   // =========================
@@ -207,7 +208,7 @@ const inStock = Number(stock) > 0;
     if (!inStock) return;
 
     try {
-      await addItemToCart(productId, quantity);
+      await addItemToCart(_id, quantity);
     } catch (error) {
       console.error("Error adding product to cart:", error);
     }
@@ -220,9 +221,9 @@ const inStock = Number(stock) > 0;
   const handleWishlistToggle = async () => {
     try {
       if (wishlisted) {
-        await removeFromWishlist(productId);
+        await removeFromWishlist(_id);
       } else {
-        await addToWishlist(productId);
+        await addToWishlist(_id);
       }
     } catch (error) {
       console.error("Error updating wishlist:", error);
@@ -234,20 +235,80 @@ const inStock = Number(stock) > 0;
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
-        {/* IMAGE */}
+        <div>
+          {/* Main Image */}
+          <div className="relative bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center p-8 min-h-[450px]">
+            <img
+              src={productImage}
+              alt={name}
+              className="max-h-[420px] max-w-full object-contain"
+              onError={(e) => {
+                e.currentTarget.src = "/placeholder-product.png";
+              }}
+            />
 
-        <div className="bg-gray-50 rounded-lg flex items-center justify-center p-8 min-h-[450px]">
+            {images.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setSelectedImage((current) =>
+                      current === 0 ? images.length - 1 : current - 1
+                    )
+                  }
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white dark:bg-slate-700 shadow flex items-center justify-center text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-600"
+                >
+                  <IoMdArrowDropleft />
+                </button>
 
-          <img
-            src={productImage}
-            alt={name}
-            className="max-h-[420px] max-w-full object-contain"
-            onError={(e) => {
-              e.currentTarget.src =
+                <button
+                  type="button"
+                  onClick={() =>
+                    setSelectedImage((current) =>
+                      current === images.length - 1 ? 0 : current + 1
+                    )
+                  }
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white dark:bg-slate-700 shadow flex items-center justify-center text-slate-600 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-600"
+                >
+                  <IoMdArrowDropright />
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Thumbnails */}
+          {images.length > 1 && (
+            <div className="flex gap-3 mt-4 overflow-x-auto">
+              {images.map((image, index) => {
+                const imageUrl =
+                typeof image === "string"
+                ? image
+                : image?.url ||
+                image?.secure_url ||
+                image?.src ||
                 "/placeholder-product.png";
-            }}
-          />
 
+                return (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => setSelectedImage(index)}
+                    className={`w-28 h-28 shrink-0 rounded-lg overflow-hidden border-2 ${
+                    selectedImage === index
+                      ? "border-indigo-500 dark:border-indigo-800"
+                      : "border-gray-200 dark:border-gray-700"
+                    }`}
+                  >
+                    <img
+                      src={imageUrl}
+                      alt={`${name} ${index + 1}`}
+                      className="w-full h-full object-contain p-1"
+                    />
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* DETAILS */}
@@ -259,13 +320,13 @@ const inStock = Number(stock) > 0;
           <div className="flex flex-wrap gap-2 mb-3">
 
             {brand && (
-              <span className="text-xs font-medium bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full">
+              <span className="text-xs font-medium bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full dark:bg-indigo-900/30 dark:text-indigo-400">
                 {brand}
               </span>
             )}
 
             {category && (
-              <span className="text-xs font-medium bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
+              <span className="text-xs font-medium bg-gray-100 text-gray-600 px-3 py-1 rounded-full dark:bg-gray-700 dark:text-gray-200">
                 {category}
               </span>
             )}
@@ -274,7 +335,7 @@ const inStock = Number(stock) > 0;
 
           {/* Product Name */}
 
-          <h1 className="text-3xl font-bold text-gray-900 mb-3">
+          <h1 className="text-3xl font-bold text-slate-900 mb-3 dark:text-slate-200">
             {name}
           </h1>
 
@@ -298,11 +359,11 @@ const inStock = Number(stock) > 0;
             </span>
 
             {inStock ? (
-              <span className="text-xs font-medium bg-green-50 text-green-600 px-2.5 py-1 rounded-full ml-2">
+              <span className="text-xs font-medium bg-green-50 text-green-600 dark:bg-green-900/30 dark:text-green-400 px-2.5 py-1 rounded-full ml-2">
                 In Stock
               </span>
             ) : (
-              <span className="text-xs font-medium bg-red-50 text-red-500 px-2.5 py-1 rounded-full ml-2">
+              <span className="text-xs font-medium bg-red-50 text-red-500 dark:bg-red-900/30 dark:text-red-400 px-2.5 py-1 rounded-full ml-2">
                 Out of Stock
               </span>
             )}
@@ -323,7 +384,7 @@ const inStock = Number(stock) > 0;
                   EGP {Number(price).toLocaleString()}
                 </span>
 
-                <span className="text-xs font-semibold bg-red-50 text-red-500 px-2 py-0.5 rounded-full">
+                <span className="text-xs font-semibold bg-red-50 text-red-500 dark:bg-red-900/30 dark:text-red-400 px-2 py-0.5 rounded-full">
                   -{discountPct}%
                 </span>
               </>
@@ -337,24 +398,24 @@ const inStock = Number(stock) > 0;
 
             {/* Quantity */}
 
-            <div className="flex items-center border border-gray-200 rounded-lg">
+            <div className="flex items-center border border-slate-200 dark:border-slate-700 rounded-lg">
 
               <button
                 onClick={decreaseQty}
                 disabled={!inStock}
-                className="w-10 h-11 text-gray-500 disabled:opacity-40"
+                className="w-10 h-11 text-gray-500 dark:text-gray-400 disabled:opacity-40"
               >
                 −
               </button>
 
-              <span className="w-10 text-center font-medium">
+              <span className="w-10 text-center font-medium dark:text-slate-200">
                 {quantity}
               </span>
 
               <button
                 onClick={increaseQty}
                 disabled={!inStock}
-                className="w-10 h-11 text-gray-500 disabled:opacity-40"
+                className="w-10 h-11 text-gray-500 dark:text-gray-400 disabled:opacity-40"
               >
                 +
               </button>
@@ -386,7 +447,7 @@ const inStock = Number(stock) > 0;
                   ? "Remove from wishlist"
                   : "Add to wishlist"
               }
-              className="w-11 h-11 flex items-center justify-center border border-gray-200 rounded-lg"
+              className="w-11 h-11 flex items-center justify-center border border-gray-200 dark:border-gray-600 rounded-lg"
             >
               <HeartIcon filled={wishlisted} />
             </button>
@@ -396,7 +457,7 @@ const inStock = Number(stock) > 0;
           {/* Available Stock */}
 
           {inStock && (
-            <p className="text-sm text-gray-500 mb-6">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
               {stock} items available
             </p>
           )}
@@ -405,11 +466,11 @@ const inStock = Number(stock) > 0;
 
           {description && (
             <div>
-              <h2 className="text-lg font-semibold text-gray-900 mb-2">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-200 mb-2">
                 Description
               </h2>
 
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                 {description}
               </p>
             </div>

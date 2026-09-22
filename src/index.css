@@ -18,6 +18,10 @@
   animation: slide-up 0.3s ease-out;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-serif);
 }

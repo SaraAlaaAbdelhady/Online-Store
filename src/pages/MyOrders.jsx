@@ -4,9 +4,8 @@ import OrderCard from "../components/orders/OrderCard";
 import { Link } from "react-router-dom";
 import { BsBoxSeam } from "react-icons/bs";
 import ErrorMsg from "../components/orders/ErrorMsg";
-import LoadingSpinner from "../components/orders/LoadingSpinner";
-import { IoMdArrowDropleft } from "react-icons/io";
-import { IoMdArrowDropright } from "react-icons/io";
+import LoadingSpinner from "../components/LoadingSpinner";
+import Pagination from "../components/Pagination";
 
 
 function MyOrders() {
@@ -18,7 +17,7 @@ function MyOrders() {
     const [total, setTotal] = useState(null);
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(true);
-    const [ paginationLoading, setPaginationLoading ] = useState(false);
+    const [paginationLoading, setPaginationLoading] = useState(false);
     const [error, setError] = useState(null);
 
     // useEffect on mount 
@@ -88,30 +87,12 @@ if (error) {
                 {orders.map(order => (
                     <OrderCard key={order._id} order={order} />
                 ))}
-                {totalPages > 1 && (
-                    <div className="mt-8 flex items-center justify-center gap-5">
-                        <button
-                            onClick={() => setPage(prev => prev - 1)}
-                            disabled={page === 1 || paginationLoading}
-                            className="cursor-pointer disabled:cursor-default disabled:opacity-50 text-slate-600 hover:text-slate-900 p-2"
-                        >
-                            <IoMdArrowDropleft size={20} />
-                        </button>
-                        <div className="flex items-center gap-2">
-                            <span className="text-sm font-medium text-slate-600">{page} of {totalPages}</span>
-                            {paginationLoading && (
-                                <span className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-700"/>
-                            )}
-                        </div>
-                        <button
-                            onClick={() => setPage(prev => prev + 1)}
-                            disabled={page === totalPages || paginationLoading}
-                            className="cursor-pointer disabled:cursor-default disabled:opacity-50 text-slate-600 hover:text-slate-900 p-2"
-                        >
-                            <IoMdArrowDropright size={20} />
-                        </button>
-                    </div>
-                )}
+                <Pagination 
+                    page={page}
+                    totalPages={totalPages}
+                    onPageChange={setPage}
+                    paginationLoading={paginationLoading}
+                />
             </div>
         </div>
     )

@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import StatusBadge from "../components/orders/StatusBadge"
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import ErrorMsg from "../components/orders/ErrorMsg"
-import LoadingSpinner from "../components/orders/LoadingSpinner"
+import LoadingSpinner from "../components/LoadingSpinner"
 
 
 function OrderDetails() {
