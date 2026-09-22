@@ -5,6 +5,9 @@ import { useCart } from "../contexts/CartContext";
 import { useWishlist } from "../contexts/WishlistContext";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
+import ReviewCard from "../components/viewProduct/ReviewCard";
+import WriteReviewForm from "../components/viewProduct/WriteReviewForm";
+import { useUser } from "../contexts/UserContext"
 
 const StarIcon = ({ filled }) => (
   <svg
@@ -51,8 +54,9 @@ function ViewProduct() {
    const { id } = useParams();
   const navigate = useNavigate();
 
-  const { getProductById } = useProduct();
+  const { getProductById, getProductReviews, addReview, deleteReview } = useProduct();
   const { addItemToCart } = useCart();
+  const { user } = useUser();
 
   const {
     wishlist,
@@ -66,6 +70,12 @@ function ViewProduct() {
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [toast, setToast] = useState("");
+  const [activeTab, setActiveTab] = useState("description");
+  const [reviews, setReviews] = useState([]);
+  const [reviewsAverageRating, setReviewsAverageRating] = useState(0);
+  const [reviewsCount, setReviewsCount] = useState(0);
+  const [reviewsLoading, setReviewsLoading] = useState(true);
+  const [reviewsError, setReviewsError] = useState("");
 
   const showToast = (message) => {
     setToast(message);
@@ -103,6 +113,39 @@ function ViewProduct() {
       cancelled = true;
     };
   }, [id, getProductById]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadReviews() {
+      setReviewsLoading(true);
+      setReviewsError("");
+
+      try {
+        const data = await getProductReviews(id);
+
+        if (!cancelled) {
+          setReviews(data?.reviews || []);
+          setReviewsAverageRating(Number(data?.averageRating) || 0);
+          setReviewsCount(Number(data?.numReviews) || 0);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setReviewsError(err.message || "Failed to load reviews.");
+        }
+      } finally {
+        if (!cancelled) {
+          setReviewsLoading(false);
+        }
+      }
+    }
+
+    loadReviews();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [id, getProductReviews]);
 
   if (loading) {
     return (
@@ -156,7 +199,7 @@ const inStock = Number(stock) > 0;
     typeof images?.[selectedImage] === "string"
       ? images[selectedImage]
       : images?.[selectedImage]?.url ||
-        images?.[selectedImage0]?.secure_url ||
+        images?.[selectedImage]?.secure_url ||
         images?.[selectedImage]?.src ||
         "/placeholder-product.png";
 
@@ -253,6 +296,30 @@ const inStock = Number(stock) > 0;
         showToast("Something went wrong");
       }
     }
+  };
+
+  // =========================
+  // REVIEWS
+  // =========================
+
+  const handleSubmitReview = async (reviewData) => {
+    await addReview(id, reviewData);
+
+    const data = await getProductReviews(id)
+
+    setReviews(data.reviews || [])
+    setReviewsAverageRating(Number(data.averageRating) || 0)
+    setReviewsCount(Number(data.numReviews) || 0  )
+  }
+
+  const handleDeleteReview = async (reviewId) => {
+    await deleteReview(id, reviewId);
+
+    const data = await getProductReviews(id);
+
+    setReviews(data.reviews || []);
+    setReviewsAverageRating(Number(data.averageRating) || 0);
+    setReviewsCount(Number(data.numReviews) || 0);
   };
 
   return (
@@ -384,14 +451,14 @@ const inStock = Number(stock) > 0;
                 <StarIcon
                   key={n}
                   filled={
-                    n <= Math.round(Number(averageRating))
+                    n <= Math.round(Number(reviewsAverageRating))
                   }
                 />
               ))}
             </div>
 
             <span className="text-sm text-gray-400">
-              ({numReviews})
+              ({reviewsCount})
             </span>
 
             {inStock ? (
@@ -493,7 +560,7 @@ const inStock = Number(stock) > 0;
           {/* Available Stock */}
 
           {inStock && (
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+            <p className="text-sm rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 mb-6 w-fit px-2 py-1">
               {stock} items available
             </p>
           )}
@@ -509,6 +576,63 @@ const inStock = Number(stock) > 0;
               <p className="text-slate-600 dark:text-slate-400 leading-relaxed ">
                 {description}
               </p>
+            </div>
+          )}
+
+        </div>
+      </div>
+      <div className="mt-16">
+        <div className="flex gap-3 border-b border-gray-200">
+          <button
+            type="button"
+            onClick={() => setActiveTab("description")}
+            className={`pb-4 px-6 text-sm font-semibold transition-colors duration-200 ${
+              activeTab === "description"
+                ? "border-b-2 border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
+                : "text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
+            }`}
+          >
+            Description
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("reviews")}
+            className={`pb-4 px-6 text-sm font-semibold transition-colors duration-200 ${
+              activeTab === "reviews"
+                ? "border-b-2 border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
+                : "text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
+            }`}
+          >
+            Reviews ({reviewsCount})
+          </button>
+        </div>
+
+        <div className="py-6">
+          {activeTab === "description" ? (
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              {description || "No description available."}
+            </p>
+          ): (
+            <div>
+              {user && (
+                <WriteReviewForm onSubmit={handleSubmitReview} />
+              )}
+              {reviewsLoading ? (
+                <LoadingSpinner />
+              ): reviewsError ? (
+                <p>{reviewsError}</p>
+              ) : reviews.length === 0 ? (
+                <p>No reviews yet. Be the first!</p>
+              ): (
+                reviews.map((review) => (
+                  <ReviewCard 
+                    key={review._id}
+                    review={review}
+                    canDelete={user?._id === review.user?._id}
+                    onDelete={handleDeleteReview}
+                  />
+                ))
+              )}
             </div>
           )}
 

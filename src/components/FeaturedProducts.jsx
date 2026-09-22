@@ -264,11 +264,17 @@ setTimeout(() => {
                     <img
                       src={image}
                       alt={product.name}
-                      className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+                      className={`h-full w-full object-cover transition-transform duration-500 ${inStock ? "group-hover:scale-105" : "opacity-50"}`}
                     />
                   ) : (
                     <div className="flex h-full items-center justify-center text-gray-400 dark:text-slate-400">
                       <i className="fa-regular fa-image text-4xl"></i>
+                    </div>
+                  )}
+
+                  {!inStock && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+                      <span className="rounded-full bg-red-100 dark:bg-red-900/30 px-2 py-1 text-sm font-semibold text-red-700 dark:text-red-400">Out of Stock</span>
                     </div>
                   )}
 
