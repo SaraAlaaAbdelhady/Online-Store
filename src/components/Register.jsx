@@ -111,7 +111,7 @@ const Register = () => {
             <i className="fa-solid fa-bolt text-xl text-indigo-600"></i>
 
             <h1 className="text-xl font-bold text-indigo-600">
-              Koda Store
+              Motors Store
             </h1>
           </div>
 
@@ -125,7 +125,7 @@ const Register = () => {
         </div>
 
         {/* Register Card */}
-        <div className="w-full rounded-3xl border bg-white  border-gray-200 dark:bg-slate-800 dark:border-slate-600 p-5 shadow-sm sm:p-6">
+        <div className="w-[85%] rounded-3xl border bg-white  border-gray-200 dark:bg-slate-800 dark:border-slate-600 p-5 shadow-sm sm:p-6">
           <form onSubmit={handleSubmit}>
 
             {/* Username */}

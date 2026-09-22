@@ -42,7 +42,7 @@ const Wishlist = () => {
 
   if (wishlistLoading) {
     return (
-      <section className="min-h-screen bg-white px-4 py-12 dark:bg-slate-950 sm:px-6 lg:px-8">
+      <section className="min-h-screen bg-white px-4 py-12 dark:bg-slate-950 px-12 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-[1400px]">
           <div className="mb-10">
             <div className="h-9 w-64 animate-pulse rounded bg-gray-200 dark:bg-gray-800"></div>
@@ -71,7 +71,7 @@ const Wishlist = () => {
 
   if (!wishlist || wishlist.length === 0) {
     return (
-      <section className="min-h-screen bg-white px-4 py-12 dark:bg-slate-950 sm:px-6 lg:px-8">
+      <section className=" bg-white  dark:bg-slate-950 px-10 pb-6 sm:px-6 lg:px-8 mb-15">
         <div className="mx-auto max-w-[1400px]">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
             My Wishlist

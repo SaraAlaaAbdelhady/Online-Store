@@ -10,7 +10,7 @@ const HeroSection = () => {
       "
       >
         {" "}
-        <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 mt-16 md:mt-0">
+        <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 mt-0 md:mt-0">
           <div className="w-full md:w-1/2 text-center md:text-left">
             <p className="text-white text-lg mb-6 flex items-center gap-2">
               <GiSparkles className="w-5 h-5 text-gray-300 shrink-0" />

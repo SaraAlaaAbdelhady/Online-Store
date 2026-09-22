@@ -76,7 +76,7 @@ const UserLogin = () => {
   ////////////////// header content section  ////////////////////////////////
 
   const headerContent = {
-    title: "Koda Store",
+    title: "Motors Store",
     message: "Welcome back",
     instructions: "Sign in to your account",
   };
@@ -85,7 +85,7 @@ const UserLogin = () => {
     <>
       <Toaster position="top-center" reverseOrder={false} />
 
-      <div className="    flex flex-col gap-y-5 justify-center items-center bg-gray-50 min-h-fit p-2.5 dark:bg-[#0f172a] ">
+      <div className="    flex flex-col gap-y-5 justify-start pt-10 items-center bg-gray-50 min-h-screen dark:bg-[#0f172a] ">
         {/* header section  */}
 
         <AuthHeader headerContent={headerContent} />
@@ -93,7 +93,7 @@ const UserLogin = () => {
         {/* start login form section  */}
 
         <form
-          className="flex flex-col  justify-between w-[35%] bg-white px-5 py-4 rounded-2xl border border-gray-200 mb-10 dark:bg-[#1d293d93] dark:border-[#454e65]"
+          className="flex flex-col  justify-between   w-[85%] sm:w-[35%] bg-white px-5 py-4 rounded-2xl border border-gray-200 mb-10 dark:bg-[#1d293d93] dark:border-[#454e65]"
           method="post"
           onSubmit={submitData}
         >

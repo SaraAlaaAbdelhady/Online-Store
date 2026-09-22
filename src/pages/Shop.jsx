@@ -137,7 +137,7 @@ function Shop() {
   };
 
   return (
-    <section className="relative bg-gray-50 dark:bg-slate-950 px-4 py-8 sm:px-6 lg:px-10">
+    <section className="relative bg-gray-50 dark:bg-slate-950 px-4 py-5 sm:px-6 lg:px-10">
       {/* Toast */}
       {toast && (
         <div className="fixed right-6 top-6 z-50 flex w-fit max-w-[220px] items-center gap-2 rounded-xl bg-[#111827] dark:bg-slate-800 px-3 py-2.5 shadow-xl">
@@ -150,7 +150,7 @@ function Shop() {
         </div>
       )}
 
-      <div className="mx-auto max-w-[1400px]">
+      <div className="mx-auto max-w-[1400px] px-8 py-6 sm:px-6 lg:px-8">
         {/* Search Bar */}
         <div className="relative mb-6">
           <i className="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500"></i>

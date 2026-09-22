@@ -49,8 +49,22 @@ function MyOrders() {
     if (loading) return <LoadingSpinner />
 
     // if error: show error message
-    if (error) return <ErrorMsg message={error} />
+if (error) {
+    return (
+        <div className="flex min-h-[500px] w-full flex-col items-center justify-center p-6 text-center dark:bg-slate-900">
+            <h3 className="mb-4 text-xl font-semibold text-slate-600 dark:text-slate-200">
+                Please login to your account 
+            </h3>
 
+            <Link
+                to="/login"
+                className="rounded-lg bg-blue-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-600"
+            >
+                Login
+            </Link>
+        </div>
+    );
+}
     // if orders is empty: no orders yet and navigate to shop
     if (!loading && total === 0) {
         return(
@@ -69,7 +83,7 @@ function MyOrders() {
     // otherwise: map over orders, render an OrderCard per order
     return(
         <div className="bg-gray-100/50 dark:bg-slate-900">
-            <div className="p-6 md:p-8 max-w-4xl mx-auto">
+            <div className="px-11 py-12 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                 <h2 className="text-2xl font-bold text-slate-800 mb-8 dark:text-slate-200">My Orders</h2>
                 {orders.map(order => (
                     <OrderCard key={order._id} order={order} />

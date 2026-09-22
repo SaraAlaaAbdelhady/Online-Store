@@ -109,7 +109,7 @@ const featuredProducts = (products || [])
 
   return (
 
-    <section className="relative  px-4 py-12 sm:px-6 lg:px-8">
+    <section className="relative  px-11 py-12 sm:px-6 lg:px-8">
 
       {/* Toast */}
       {toast && (
@@ -143,7 +143,7 @@ const featuredProducts = (products || [])
           {/* View All */}
           <Link
             to="/shop"
-            className="flex w-fit items-center gap-2 text-sm font-semibold text-indigo-600 transition hover:text-indigo-800 dark:text-[#0ec4ec] dark:hover:text-cyan-300"
+            className="  ml-auto flex w-fit items-center gap-2 text-sm font-semibold text-indigo-600 transition hover:text-indigo-800 dark:text-[#0ec4ec] dark:hover:text-cyan-300"
           >
             View All
             <i className="fa-solid fa-arrow-right text-xs"></i>

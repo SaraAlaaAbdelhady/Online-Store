@@ -68,7 +68,7 @@ function OrderDetails() {
 
     return(
         <div className="bg-gray-100/50 dark:bg-slate-900">
-            <div className="p-6 md:p-8 max-w-4xl mx-auto"> 
+            <div className="px-11 py-12 sm:px-6 lg:px-8 max-w-4xl mx-auto"> 
                 {/* header */}
                 <div className="flex justify-between items-center mb-8">
                     <div className="flex flex-col">
