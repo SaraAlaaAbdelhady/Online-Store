@@ -340,7 +340,7 @@ const inStock = Number(stock) > 0;
 
         <div>
           {/* Main Image */}
-          <div className="relative bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center p-8 min-h-[450px]">
+          <div className="relative bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center p-8 min-h-[300px]">
             <img
               src={productImage}
               alt={name}
@@ -438,7 +438,7 @@ const inStock = Number(stock) > 0;
 
           {/* Product Name */}
 
-          <h1 className="text-3xl font-bold text-slate-900 mb-3 dark:text-slate-200">
+          <h1 className="text-xl md:text-3xl font-bold text-slate-900 mb-3 dark:text-slate-200">
             {name}
           </h1>
 
@@ -477,7 +477,7 @@ const inStock = Number(stock) > 0;
 
           <div className="flex items-baseline gap-3 mb-6">
 
-            <span className="text-3xl font-bold text-indigo-600">
+            <span className="text-xl md:text-3xl font-bold text-indigo-600">
               EGP {currentPrice.toLocaleString()}
             </span>
 
@@ -506,19 +506,19 @@ const inStock = Number(stock) > 0;
               <button
                 onClick={decreaseQty}
                 disabled={!inStock}
-                className="w-10 h-11 text-gray-500 dark:text-gray-400 disabled:opacity-40"
+                className="w-6 md:w-10 h-11 text-gray-500 dark:text-gray-400 disabled:opacity-40"
               >
                 −
               </button>
 
-              <span className="w-10 text-center font-medium dark:text-slate-200">
+              <span className="w-6 md:w-10 text-center font-medium dark:text-slate-200">
                 {quantity}
               </span>
 
               <button
                 onClick={increaseQty}
                 disabled={!inStock}
-                className="w-10 h-11 text-gray-500 dark:text-gray-400 disabled:opacity-40"
+                className="w-6 md:w-10 h-11 text-gray-500 dark:text-gray-400 disabled:opacity-40"
               >
                 +
               </button>
@@ -530,7 +530,7 @@ const inStock = Number(stock) > 0;
             <button
               onClick={handleAddToCart}
               disabled={!inStock}
-              className={`flex-1 h-11 rounded-lg font-medium flex items-center justify-center gap-2 ${
+              className={`flex-1 h-11 rounded-lg font-medium flex items-center justify-center gap-2 whitespace-nowrap ${
                 inStock
                   ? "bg-indigo-500 hover:bg-indigo-600 text-white"
                   : "bg-indigo-200 text-white cursor-not-allowed"

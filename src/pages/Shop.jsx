@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useProduct } from "../contexts/ProductContext";
 import { useCart } from "../contexts/CartContext";
 import { useWishlist } from "../contexts/WishlistContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
 
 const CATEGORIES = [
@@ -27,10 +27,13 @@ function Shop() {
   const { addItemToCart } = useCart();
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const byCategory = searchParams.get("category")
 
   // ////////////// filters state //////////////
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(byCategory || "");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [sort, setSort] = useState("");
