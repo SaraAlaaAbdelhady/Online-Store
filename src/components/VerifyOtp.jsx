@@ -197,27 +197,27 @@ const VerifyOtp = () => {
   // If user opens /verify-otp directly without registering first
   if (!email) {
     return (
-      <main className="min-h-[calc(100vh-80px)] bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-gray-50 px-4 py-12 sm:px-6 lg:px-8 dark:bg-slate-950">
         <div className="mx-auto flex max-w-md flex-col items-center">
           <div className="mb-6 text-center">
             <div className="mb-2 flex items-center justify-center">
-              <i className="fa-solid fa-bolt text-xl text-indigo-600"></i>
+              <i className="fa-solid fa-bolt text-xl text-indigo-600 dark:text-[#0ec4ec]"></i>
             </div>
 
-            <h2 className="text-2xl font-semibold text-gray-900">
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
               Verify Your Email
             </h2>
 
-            <p className="mt-2 text-xs text-gray-500">
+            <p className="mt-2 text-xs text-gray-500 dark:text-slate-400">
               Please start the registration process first.
             </p>
           </div>
 
-          <div className="w-full rounded-lg border border-gray-200 bg-white p-5 shadow-sm sm:p-6">
+          <div className="w-full rounded-lg border border-gray-200 bg-white p-5 shadow-sm sm:p-6 dark:border-gray-700 dark:bg-slate-900">
             <button
               type="button"
               onClick={() => navigate("/register")}
-              className="flex h-10 w-full items-center justify-center rounded-md bg-indigo-600 px-4 text-sm font-semibold text-white transition hover:bg-indigo-700"
+              className="flex h-10 w-full items-center justify-center rounded-md bg-indigo-600 px-4 text-sm font-semibold text-white transition hover:bg-indigo-700 dark:bg-[#2368e9] dark:hover:bg-[#0ec4ec]"
             >
               Back to Register
             </button>
@@ -228,28 +228,28 @@ const VerifyOtp = () => {
   }
 
   return (
-    <main className="min-h-[calc(100vh-80px)] bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-gray-50 px-4 py-12 sm:px-6 lg:px-8 dark:bg-slate-950">
       <div className="mx-auto flex max-w-md flex-col items-center">
         {/* Header */}
         <div className="mb-6 text-center">
           <div className="mb-2 flex items-center justify-center">
-            <i className="fa-solid fa-bolt text-xl text-indigo-600"></i>
+            <i className="fa-solid fa-bolt text-xl text-indigo-600 dark:text-[#0ec4ec]"></i>
           </div>
 
-          <h2 className="text-2xl font-semibold text-gray-900">
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
             Verify Your Email
           </h2>
 
-          <p className="mt-2 text-xs text-gray-500">
+          <p className="mt-2 text-xs text-gray-500 dark:text-slate-400">
             We sent a 6-digit code to{" "}
-            <span className="font-medium text-gray-700">
+            <span className="font-medium text-gray-700 dark:text-slate-300">
               {email}
             </span>
           </p>
         </div>
 
         {/* OTP Card */}
-        <div className="w-full rounded-lg border border-gray-200 bg-white p-5 shadow-sm sm:p-6">
+        <div className="w-full rounded-lg border border-gray-200 bg-white p-5 shadow-sm sm:p-6 dark:border-gray-700 dark:bg-slate-900">
           <form onSubmit={handleVerify}>
             {/* OTP Inputs */}
             <div
@@ -274,21 +274,21 @@ const VerifyOtp = () => {
                   }
                   disabled={loading}
                   aria-label={`OTP digit ${index + 1}`}
-                  className="h-11 w-10 rounded-md border border-gray-300 bg-white text-center text-lg font-semibold text-gray-800 outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:bg-gray-50 sm:h-12 sm:w-12"
+                  className="h-11 w-10 rounded-md border border-gray-300 bg-white text-center text-lg font-semibold text-gray-800 outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:bg-gray-50 sm:h-12 sm:w-12 dark:border-gray-700 dark:bg-gray-800 dark:text-slate-300 dark:focus:border-[#2368e9] dark:focus:ring-[#2368e9] dark:disabled:bg-gray-800"
                 />
               ))}
             </div>
 
             {/* Error */}
             {error && (
-              <div className="mt-4 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-center text-xs text-red-600">
+              <div className="mt-4 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-center text-xs text-red-600 dark:border-red-900 dark:bg-gray-800 dark:text-red-400">
                 {error}
               </div>
             )}
 
             {/* Success */}
             {success && (
-              <div className="mt-4 rounded-md border border-green-200 bg-green-50 px-3 py-2 text-center text-xs text-green-600">
+              <div className="mt-4 rounded-md border border-green-200 bg-green-50 px-3 py-2 text-center text-xs text-green-600 dark:border-green-900 dark:bg-gray-800 dark:text-green-400">
                 {success}
               </div>
             )}
@@ -297,7 +297,7 @@ const VerifyOtp = () => {
             <button
               type="submit"
               disabled={loading || resending}
-              className="mt-5 flex h-10 w-full items-center justify-center gap-2 rounded-md bg-indigo-600 px-4 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-indigo-400"
+              className="mt-5 flex h-10 w-full items-center justify-center gap-2 rounded-md bg-indigo-600 px-4 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-indigo-400 dark:bg-[#2368e9] dark:hover:bg-[#0ec4ec] dark:disabled:bg-gray-700"
             >
               {loading && (
                 <i className="fa-solid fa-spinner fa-spin text-xs"></i>
@@ -310,11 +310,11 @@ const VerifyOtp = () => {
           </form>
 
           {/* Resend */}
-          <div className="mt-5 text-center text-xs text-gray-500">
+          <div className="mt-5 text-center text-xs text-gray-500 dark:text-slate-400">
             <span>Didn't receive the code? </span>
 
             {countdown > 0 ? (
-              <span className="font-medium text-gray-400">
+              <span className="font-medium text-gray-400 dark:text-slate-500">
                 Resend in {countdown}s
               </span>
             ) : (
@@ -322,15 +322,16 @@ const VerifyOtp = () => {
                 type="button"
                 onClick={handleResend}
                 disabled={resending}
-                className="font-medium text-indigo-600 transition hover:text-indigo-700 hover:underline disabled:cursor-not-allowed disabled:text-indigo-400">
+                className="font-medium text-indigo-600 transition hover:text-indigo-700 hover:underline disabled:cursor-not-allowed disabled:text-indigo-400 dark:text-[#0ec4ec] dark:hover:text-cyan-300 dark:disabled:text-slate-500"
+              >
                 {resending ? "Sending..." : "Resend"}
               </button>
             )}
-            </div>
+          </div>
         </div>
-        </div>
+      </div>
     </main>
-    );
+  );
 };
 
 export default VerifyOtp;
