@@ -67,13 +67,15 @@ if (error) {
     // if orders is empty: no orders yet and navigate to shop
     if (!loading && total === 0) {
         return(
-            <div className="flex min-h-screen w-full flex-col items-center justify-center p-6 text-center dark:bg-slate-900">
-                <div className="rounded-full w-16 h-16 bg-slate-100 dark:bg-slate-700 flex items-center justify-center">
-                    <BsBoxSeam size={30} className="text-lg text-slate-400"/>
+            <div className="flex min-h-[400px] w-full items-center justify-center p-6 text-center dark:bg-slate-900">
+                <div className="flex w-full max-w-[400px] flex-col items-center">
+                    <div className="rounded-full w-16 h-16 bg-slate-100 dark:bg-slate-700 flex items-center justify-center">
+                        <BsBoxSeam size={30} className="text-lg text-slate-400"/>
+                    </div>
+                    <h3 className="mt-6 mb-3 text-lg font-semibold text-slate-900 dark:text-slate-200">No orders yet</h3>
+                    <p className="text-base font-medium text-slate-400 mb-6">You haven't placed any orders yet. Start shopping to see your orders here.</p>
+                    <Link to="/shop" className="inline-flex items-center justify-center rounded-lg bg-blue-500 dark:bg-blue-700 px-5 py-2.5 text-sm font-medium text-white dark:text-slate-200 transition-colors hover:bg-blue-400 dark:hover:bg-blue-600 focus:outline-none">Start Shopping</Link>
                 </div>
-                <h3 className="mt-6 mb-3 text-xl font-semibold text-slate-900 dark:text-slate-200">No orders yet</h3>
-                <p className="text-md font-medium text-slate-400 mb-6">You haven't placed any orders yet. Start shopping to see your orders here.</p>
-                <Link to="/shop" className="inline-flex items-center justify-center rounded-lg bg-blue-500 dark:bg-blue-700 px-5 py-2.5 text-sm font-medium text-white dark:text-slate-200 transition-colors hover:bg-blue-400 dark:hover:bg-blue-600 focus:outline-none">Start Shopping</Link>
             </div>
         )
     }

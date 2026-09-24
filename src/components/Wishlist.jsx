@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useWishlist } from "../contexts/WishlistContext";
 import { useCart } from "../contexts/CartContext";
+import { BiHeart } from "react-icons/bi";
 
 const Wishlist = () => {
   const { wishlist, loading: wishlistLoading, removeFromWishlist } = useWishlist();
@@ -71,25 +72,21 @@ const Wishlist = () => {
 
   if (!wishlist || wishlist.length === 0) {
     return (
-      <section className=" bg-white  dark:bg-slate-950 px-10 pb-6 sm:px-6 lg:px-8 mb-15">
-        <div className="mx-auto max-w-[1400px]">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
-            My Wishlist
-          </h2>
-          <div className="mt-8 rounded-2xl border border-dashed bg-gray-100 dark:bg-slate-900 border-gray-300 py-16 text-center dark:border-gray-700">
-            <i className="fa-regular fa-heart text-4xl text-gray-300 dark:text-slate-700"></i>
-            <p className="mt-4 text-gray-500 dark:text-slate-400">
-              Your wishlist is empty.
-            </p>
-            <Link
-              to="/shop"
-              className="mt-5 inline-flex h-9 items-center justify-center rounded-lg bg-indigo-600 px-5 text-xs font-semibold text-white transition hover:bg-indigo-700"
-            >
-              Continue Shopping
-            </Link>
+      <div className="flex min-h-[400px] w-full items-center justify-center p-6 text-center dark:bg-slate-900">
+        <div className="flex w-full max-w-[400px] flex-col items-center">
+          <div className="rounded-full w-16 h-16 bg-slate-100 dark:bg-slate-700 flex items-center justify-center">
+            <BiHeart size={30} className="text-lg text-slate-400"/>
           </div>
+          <h3 className="mt-6 mb-3 text-lg font-semibold text-slate-900 dark:text-slate-200">Your wishlist is empty</h3>
+          <p className="text-base font-medium text-slate-400 mb-6">Save items you love to your wishlist. They'll be waiting for you here.</p>
+          <Link
+            to="/shop"
+            className="inline-block rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white hover:bg-indigo-700"
+          >
+            Browse Products
+          </Link>
         </div>
-      </section>
+      </div>
     );
   }
 
