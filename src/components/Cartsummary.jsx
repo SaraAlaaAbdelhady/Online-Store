@@ -54,7 +54,7 @@ export default function CartSummary() {
       </Link>
 
       <Link
-        to="/products"
+        to="/shop"
         className="mt-3 block text-center text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline"
       >
         Continue Shopping
