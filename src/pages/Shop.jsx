@@ -50,7 +50,7 @@ function Shop() {
   const [totalPages, setTotalPages] = useState(1);
   const [paginationLoading, setPaginationLoading] = useState(false);
 
-  const [addingProductId, setAddingProductId] = useState(null);
+  const [addingProductIds, setAddingProductIds] = useState([]);
   const [toast, setToast] = useState("");
 
   // ////////////// debounce search + price inputs //////////////
@@ -122,8 +122,8 @@ function Shop() {
 
    const handleAddToCart = async (e, productId) => {
     e.stopPropagation();
+    setAddingProductIds((prev) => [...prev, productId]);
     try {
-      setAddingProductId(productId);
       await addItemToCart(productId, 1);
       showToast("Added to cart");
     } catch (err) {
@@ -137,7 +137,7 @@ function Shop() {
         showToast("Something went wrong");
       }
     } finally {
-      setAddingProductId(null);
+      setAddingProductIds((prev) => prev.filter((id) => id !== productId));
     }
   };
 
@@ -345,7 +345,7 @@ function Shop() {
                     const image = product.images?.[0]?.url;
                     const rating = Number(product.averageRating) || 0;
                     const inStock = Number(product.stock) > 0;
-                    const isAdding = addingProductId === product._id;
+                    const isAdding = addingProductIds.includes(product._id);
                     const isInWishlist = wishlist.some(
                       (item) => item._id === product._id
                     );
