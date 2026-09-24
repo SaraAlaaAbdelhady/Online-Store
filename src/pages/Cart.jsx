@@ -3,15 +3,14 @@ import { useCart } from "../contexts/CartContext";
 import CartItems from "../components/Cartitems";
 import CartSummary from "../components/Cartsummary";
 import { CgShoppingCart } from "react-icons/cg";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function CartPage() {
   const { cart, loading } = useCart();
 
   const items = cart?.items || [];
 
-  if (loading) {
-    return <p className="p-10 text-center text-slate-500 dark:text-slate-400">Loading...</p>;
-  }
+  if (loading) return <LoadingSpinner />
 
   if (items.length === 0) {
     return (
