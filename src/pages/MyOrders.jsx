@@ -1,7 +1,7 @@
 import { useOrder } from "../contexts/OrderContext";
 import { useState, useEffect } from "react";
 import OrderCard from "../components/orders/OrderCard";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsBoxSeam } from "react-icons/bs";
 import ErrorMsg from "../components/orders/ErrorMsg";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -10,6 +10,7 @@ import Pagination from "../components/Pagination";
 
 function MyOrders() {
     const { getMyOrders } = useOrder();
+    const navigate = useNavigate();
 
     // states: orders, loading, error, page, status
     const [orders, setOrders] = useState([]);
@@ -35,6 +36,11 @@ function MyOrders() {
                 setTotal(res.total)
                 setTotalPages(res.totalPages)
             } catch(err) {
+                if (err.message === "Not authorized, no token") {
+                    navigate("/login");
+                    return;
+                }
+
                 setError(err.message);
             } finally {
                 setLoading(false);
@@ -48,22 +54,8 @@ function MyOrders() {
     if (loading) return <LoadingSpinner />
 
     // if error: show error message
-if (error) {
-    return (
-        <div className="flex min-h-[500px] w-full flex-col items-center justify-center p-6 text-center dark:bg-slate-900">
-            <h3 className="mb-4 text-xl font-semibold text-slate-600 dark:text-slate-200">
-                Please login to your account 
-            </h3>
+    if (error) return <ErrorMsg />
 
-            <Link
-                to="/login"
-                className="rounded-lg bg-blue-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-600"
-            >
-                Login
-            </Link>
-        </div>
-    );
-}
     // if orders is empty: no orders yet and navigate to shop
     if (!loading && total === 0) {
         return(

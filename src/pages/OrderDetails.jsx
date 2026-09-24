@@ -40,7 +40,7 @@ function OrderDetails() {
 
     if (loading) return <LoadingSpinner />
 
-    if (error) return <ErrorMsg message={error}/>
+    if (error) return <ErrorMsg />
 
     if (!order) return null;
 
