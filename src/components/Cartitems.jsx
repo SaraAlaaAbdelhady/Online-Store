@@ -7,7 +7,7 @@ export default function CartItems() {
 
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
-  const [deletingId, setDeletingId] = useState(null);
+  const [deletingIds, setDeletingIds] = useState([]);
 
   const items = cart?.items || [];
 
@@ -21,7 +21,7 @@ export default function CartItems() {
   };
 
   const handleRemove = async (productId) => {
-    setDeletingId(productId);
+    setDeletingIds((prev) => [...prev, productId]);
     setError("")
 
     try {
@@ -29,7 +29,7 @@ export default function CartItems() {
     } catch (err) {
       setError(err.message);
     } finally {
-      setDeletingId(null);
+      setDeletingIds((prev) => prev.filter((id) => id !== productId));
     }
   };
 
@@ -59,7 +59,7 @@ export default function CartItems() {
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-6">
         <ul className="divide-y divide-slate-200 dark:divide-slate-700">
           {items.map((item) => (
-            <li key={item._id} className={`relative flex gap-4 py-5 ${deletingId === item.product ? "pointer-events-none opacity-60" : ""}`}>
+            <li key={item._id} className={`relative flex gap-4 py-5 ${deletingIds.includes(item.product) ? "pointer-events-none opacity-60" : ""}`}>
               <img
                 src={item.image}
                 alt={item.name}
@@ -104,7 +104,7 @@ export default function CartItems() {
                   </span>
                 </div>
               </div>
-              {deletingId === item.product && (
+              {deletingIds.includes(item.product) && (
                 <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-white/60 dark:bg-slate-800/60">
                   <div className="h-6 w-6 animate-spin rounded-full border-2 border-slate-300 border-t-blue-600 dark:border-slate-600 dark:border-t-blue-400" />
                 </div>
