@@ -155,7 +155,7 @@ function Navbar() {
               <NavLink
                 key={item.name}
                 to={item.href}
-                end={item.href === "/"}
+                end={item.href === "/" || item.href === "/orders"}
                 className={({ isActive }) =>
                   `rounded-full px-4 py-2 text-sm font-medium transition-all ${
                     isActive
